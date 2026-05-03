@@ -1,67 +1,172 @@
-# Apps in Toss 검수 체크리스트
+﻿# Apps in Toss 寃??泥댄겕由ъ뒪??
 
-## 번들 업로드 전 확인
+## 踰덈뱾 ?낅줈?????뺤씤
 
-### 기능 체크리스트
+### 湲곕뒫 泥댄겕由ъ뒪??
 
-- [ ] 하루 1회 뽑기 제한 정상 동작 (새로고침 후에도 유지)
-- [ ] 재뽑기 1회 제한 정상 동작
-- [ ] 재뽑기 후 자동 최종 확정 동작
-- [ ] 광고 실패/취소 시 기존 카드 유지
-- [ ] KST 자정 이후 새로운 뽑기 가능
-- [ ] localStorage 저장/복원 정상 동작
+- [ ] ?섎（ 1??戮묎린 ?쒗븳 ?뺤긽 ?숈옉 (?덈줈怨좎묠 ?꾩뿉???좎?)
+- [ ] ?щ퐨湲?1???쒗븳 ?뺤긽 ?숈옉
+- [ ] ?щ퐨湲????먮룞 理쒖쥌 ?뺤젙 ?숈옉
+- [ ] 愿묎퀬 ?ㅽ뙣/痍⑥냼 ??湲곗〈 移대뱶 ?좎?
+- [ ] KST ?먯젙 ?댄썑 ?덈줈??戮묎린 媛??
+- [ ] localStorage ???蹂듭썝 ?뺤긽 ?숈옉
+- [ ] 諛곕꼫 愿묎퀬 ??吏꾩엯/?댄깉 ???몄텧/?④? ?뺤긽 ?숈옉
 
-### UI/UX 체크리스트
+### UI/UX 泥댄겕由ъ뒪??
 
-- [ ] Safe Area 침범 없음 (iOS 노치, 홈 인디케이터)
-- [ ] 모바일 화면(375px~430px)에서 스크롤 없이 주요 UI 표시
-- [ ] 탭 하이라이트 비활성화 (`-webkit-tap-highlight-color: transparent`)
-- [ ] 과도한 애니메이션 없음 (접근성 고려)
-- [ ] 외부 링크, iframe 없음
+- [ ] Safe Area 移⑤쾾 ?놁쓬 (iOS ?몄튂, ???몃뵒耳?댄꽣)
+- [ ] 紐⑤컮???붾㈃(375px~430px)?먯꽌 ?ㅽ겕濡??놁씠 二쇱슂 UI ?쒖떆
+- [ ] ???섏씠?쇱씠??鍮꾪솢?깊솕 (`-webkit-tap-highlight-color: transparent`)
+- [ ] 怨쇰룄???좊땲硫붿씠???놁쓬 (?묎렐??怨좊젮)
+- [ ] ?몃? 留곹겕, iframe ?놁쓬
 
-### 콘텐츠 체크리스트
+### 肄섑뀗痢?泥댄겕由ъ뒪??
 
-- [ ] 운세/점괘/예언 톤 문구 없음
-- [ ] "희귀 확률업", "대박", "행운 강화" 등 표현 없음
-- [ ] 현금/포인트/쿠폰 등 재산적 이익 제공 없음
-- [ ] 광고는 결과 화면에서만 예측 가능한 위치에 표시
+- [ ] ?댁꽭/?먭킌/?덉뼵 ??臾멸뎄 ?놁쓬
+- [ ] "?ш? ?뺣쪧??, "?諛?, "?됱슫 媛뺥솕" ???쒗쁽 ?놁쓬
+- [ ] ?꾧툑/?ъ씤??荑좏룿 ???ъ궛???댁씡 ?쒓났 ?놁쓬
+- [ ] 愿묎퀬??寃곌낵 ?붾㈃?먯꽌留??숈쁺?? / 硫붿씤?붾㈃ ?섎떒(諛곕꼫) ?덉륫 媛?ν븳 ?꾩튂???쒖떆
 
-### 빌드 체크리스트
+### 鍮뚮뱶 泥댄겕由ъ뒪??
 
-- [ ] TypeScript 타입 오류 없음 (`npm run type-check`)
-- [ ] 빌드 성공 (`npm run build`)
-- [ ] 번들 크기 적정 (현재: ~193KB raw / ~61KB gzip)
-- [ ] `dist/` 폴더 내용이 Apps in Toss 콘솔 업로드 형식과 일치
+- [ ] TypeScript ????ㅻ쪟 ?놁쓬 (`npm run type-check`)
+- [ ] ?대┛鍮뚮뱶 ?깃났 (`npm run build:ait`)
+- [ ] `today-cute-pick.ait` ?뚯씪 ?앹꽦 ?뺤씤 (?꾨줈?앺듃 猷⑦듃)
+- [ ] `.ait` ?대???`app.json` ?ы븿 ?뺤씤
+- [ ] 踰덈뱾 ?ш린 ?곸젙
 
-## 번들 업로드 방법
+## 踰덈뱾 ?낅줈??諛⑸쾿
 
-1. `npm run build` 실행
-2. `dist/` 폴더를 zip으로 압축
-3. Apps in Toss 콘솔 → 미니앱 → 번들 업로드
-4. 검수 제출 전 내부 테스트 링크로 확인
+### 踰덈뱾 援ъ“ (`dist/` 諛?`.ait` 猷⑦듃)
 
-## 광고 설정
+```
+today-cute-pick.ait
+?쒋?? app.json        ??Apps in Toss 留ㅻ땲?섏뒪??(?꾩닔)
+?쒋?? index.html      ????吏꾩엯??
+?쒋?? favicon.svg
+?붴?? assets/
+    ?쒋?? index-*.js
+    ?쒋?? index-*.css
+    ?붴?? react-*.js
+```
 
-실제 광고 연동 시:
-1. Apps in Toss 콘솔에서 광고 그룹 생성
-2. 발급받은 광고 그룹 ID를 `src/lib/ads.ts`의 `AD_GROUP_ID`에 입력
-3. mock 모드 자동 해제 (AD_GROUP_ID가 실제 값이면 mock 비활성화)
-4. 재빌드 후 업로드
+`app.json`? Apps in Toss 肄섏넄??踰덈뱾 ?좏슚?깆쓣 寃?ы븷 ??諛섎뱶??議댁옱?댁빞 ?섎뒗 留ㅻ땲?섏뒪???뚯씪?낅땲??  
+`public/app.json`???꾩튂?섎ŉ, Vite 鍮뚮뱶 ??`dist/`濡??먮룞 蹂듭궗?⑸땲??
 
-## 이미지 에셋 추가 방법
+### app.json ?ㅼ젙
 
-현재 MVP는 이모지 + CSS 그라디언트로 캐릭터를 표현합니다.  
-실제 이미지 추가 시:
+`public/app.json` ?뚯씪???뺤씤?섍퀬, Apps in Toss 肄섏넄?먯꽌 諛쒓툒諛쏆? ??ID濡?`id` ?꾨뱶瑜??낅뜲?댄듃?섏꽭??
 
-1. `public/assets/characters/` 폴더에 이미지 추가
+```json
+{
+  "id": "today-cute-pick",
+  "name": "?ㅻ뒛??洹?ъ슫 戮묎린",
+  "version": "0.2.0",
+  "sdkVersion": "2.0.0",
+  "entry": "index.html"
+}
+```
+
+踰꾩쟾 蹂寃???`public/app.json`??`version`怨?`package.json`??`version`???④퍡 ?낅뜲?댄듃?섏꽭??
+
+### .ait ?뚯씪 鍮뚮뱶
+
+**?대┛鍮뚮뱶 (沅뚯옣 ???낅줈??????긽 ?ъ슜)**:
+```bash
+npm run build:ait
+```
+`dist/`? 湲곗〈 `.ait` ?뚯씪????젣 ??泥섏쓬遺???щ퉴?쒗빀?덈떎. ?낅줈???꾩뿉??諛섎뱶???대┛鍮뚮뱶瑜??ъ슜?섏꽭??
+
+**?쇰컲 鍮뚮뱶 (媛쒕컻 以?鍮좊Ⅸ ?뺤씤??**:
+```bash
+npm run build
+```
+湲곗〈 ?뚯씪???좎??섎ŉ 鍮뚮뱶?⑸땲?? 罹먯떆 ?뚯씪???⑥븘 ?덉쓣 ???덉쑝誘濡??낅줈???⑸룄濡쒕뒗 ?ъ슜?섏? 留덉꽭??
+
+### ?낅줈???덉감
+
+1. `npm run build:ait` ?ㅽ뻾 (?대┛鍮뚮뱶)
+2. ?꾨줈?앺듃 猷⑦듃??`today-cute-pick.ait` ?뚯씪 ?뺤씤
+3. Apps in Toss 肄섏넄 ??誘몃땲????踰덈뱾 ?낅줈????`.ait` ?뚯씪 ?좏깮
+4. 寃???쒖텧 ???대? ?뚯뒪??留곹겕濡??뺤씤
+
+> **二쇱쓽**: 怨쇨굅 zip ?뚯씪 ?낅줈??諛⑹떇? ???댁긽 ?ъ슜?섏? ?딆뒿?덈떎.  
+> `today-cute-pick.ait`???먮룞 ?앹꽦?섎뒗 Apps in Toss ?꾩슜 踰덈뱾 ?뺤떇?낅땲??
+
+## 愿묎퀬 ?ㅼ젙
+
+### ?숈쁺??蹂댁긽??愿묎퀬 (移대뱶 ?щ퐨湲?
+- 愿묎퀬 洹몃９ ID: `ait.v2.live.be5532d27f574f4b` ???ㅼ젙 ?꾨즺
+- mock 紐⑤뱶 ?먮룞 ?댁젣 (?ㅼ젣 ID?대?濡??댁쁺 ?섍꼍?먯꽌???ㅼ젣 愿묎퀬 ?몄텧)
+
+### 諛곕꼫 愿묎퀬 (硫붿씤?붾㈃ ?섎떒)
+- 愿묎퀬 洹몃９ ID: `ait.v2.live.PENDING` ??**諛쒓툒 ??援먯껜 ?꾩슂**
+- `src/lib/ads.ts`??`BANNER_AD_ID` ?곸닔 ?낅뜲?댄듃
+- PENDING ?곹깭?먯꽌???먮룞?쇰줈 mock 紐⑤뱶 ?좎? (?뚮젅?댁뒪????쒖떆)
+
+## 罹먮┃???대?吏 ?먯뀑 媛?대뱶
+
+### ?꾩옱 諛⑹떇 (MVP)
+
+?대え吏 + CSS 洹몃씪?붿뼵?몃줈 罹먮┃?곕? ?쒗쁽?⑸땲??  
+蹂꾨룄 ?대?吏 ?뚯씪 ?놁씠 ?숈옉?섎ŉ, 踰덈뱾 ?ш린瑜?理쒖냼?뷀빀?덈떎.
+
+```ts
+// characters.ts?먯꽌 媛?罹먮┃?곗쓽 ?됱긽怨??대え吏 ?뺤쓽
+{
+  characterKey: 'sleepy-otter',
+  emoji: '?└',
+  colorFrom: '#A8D8EA',
+  colorTo: '#C4E6F3',
+}
+```
+
+### ?ㅼ젣 ?대?吏 異붽? 諛⑸쾿
+
+1. **?뚯씪 洹쒓꺽**
+   - ?щ㎎: `.webp` (沅뚯옣, ?뚯씪 ?ш린 理쒖냼??
+   - ?ш린: `256횞256px` ?먮뒗 `512횞512px` (2諛??댁긽??
+   - 諛곌꼍: ?щ챸(PNG ???WebP ?ъ슜 沅뚯옣)
+   - ?뚯씪紐? `{characterKey}.webp` (?? `sleepy-otter.webp`)
+
+2. **?뚯씪 諛곗튂**
    ```
    public/assets/characters/
-   ├── sleepy-otter.webp
-   ├── picky-cat.webp
-   └── ...
+   ?쒋?? sleepy-otter.webp
+   ?쒋?? picky-cat.webp
+   ?쒋?? hyper-hamster.webp
+   ?쒋?? soft-chick.webp
+   ?쒋?? walk-dog.webp
+   ?쒋?? lazy-turtle.webp
+   ?쒋?? cloud-bunny.webp
+   ?쒋?? sparkle-fox.webp
+   ?쒋?? shy-panda.webp
+   ?쒋?? rascal-raccoon.webp
+   ?쒋?? steady-bear.webp
+   ?쒋?? star-penguin.webp
+   ?쒋?? pure-sheep.webp
+   ?쒋?? ocean-octopus.webp
+   ?쒋?? tiny-frog.webp
+   ?쒋?? sweet-koala.webp
+   ?쒋?? dreamy-whale.webp
+   ?쒋?? morning-bird.webp
+   ?쒋?? wise-owl.webp
+   ?쒋?? brave-lion.webp
+   ?쒋?? calm-elephant.webp
+   ?쒋?? flower-butterfly.webp
+   ?쒋?? mini-deer.webp
+   ?붴?? happy-pig.webp
    ```
 
-2. `src/features/cute-draw/data/characters.ts`의 각 캐릭터에 `assetPath` 추가:
+3. **????뺤옣** (`src/features/cute-draw/types.ts`):
+   ```ts
+   export interface CuteCharacter {
+     // ...湲곗〈 ?꾨뱶
+     assetPath?: string;  // 異붽?
+   }
+   ```
+
+4. **?곗씠???낅뜲?댄듃** (`src/features/cute-draw/data/characters.ts`):
    ```ts
    {
      characterKey: 'sleepy-otter',
@@ -70,17 +175,35 @@
    }
    ```
 
-3. `CuteCard.tsx`에서 `assetPath`가 있으면 이미지, 없으면 이모지로 폴백
+5. **而댄룷?뚰듃 ?대갚 泥섎━** (`CuteCard.tsx`, `CharacterCollection.tsx`):
+   ```tsx
+   {character.assetPath ? (
+     <img
+       src={character.assetPath}
+       alt={character.characterName}
+       className="w-full h-full object-contain"
+       onError={(e) => { e.currentTarget.style.display = 'none'; }}
+     />
+   ) : (
+     <span className="text-3xl">{character.emoji}</span>
+   )}
+   ```
 
-## 테스트 시나리오
+6. **踰덈뱾 ?ш린 二쇱쓽**
+   - 24醫?횞 512횞512px WebP ??理쒕? 2~3MB ?덉긽
+   - Apps in Toss 踰덈뱾 ?ш린 ?쒗븳 ?뺤씤 ?꾩슂
+   - ?꾩슂 ??128횞128px 異뺤냼 寃??
 
-| 시나리오 | 예상 결과 |
+## ?뚯뒪???쒕굹由ъ삤
+
+| ?쒕굹由ъ삤 | ?덉긽 寃곌낵 |
 |---------|----------|
-| 최초 접속 | 홈 화면, "오늘 카드 뽑기" 버튼 |
-| 카드 뽑기 | 1.2초 애니메이션 후 결과 화면 |
-| 카드 확정 | 최종 카드 화면, 재시도 불가 |
-| 광고 재뽑기 | 안내 모달 → 1.5초 로딩 → 새 카드 최종 확정 |
-| 앱 재시작 | 오늘 기록 유지, 뽑기 불가 |
-| 다음날 접속 | 홈에서 다시 "오늘 카드 뽑기" 가능 |
-| 기록 화면 | 최근 7일 카드 목록 표시 |
-| 컬렉션 화면 | 획득 캐릭터 활성, 미획득 잠금 표시 |
+| 理쒖큹 ?묒냽 | ???붾㈃, "?ㅻ뒛 移대뱶 戮묎린" 踰꾪듉, 諛곕꼫 愿묎퀬 ?뚮젅?댁뒪???DEV) |
+| 移대뱶 戮묎린 | 1.2珥??좊땲硫붿씠????寃곌낵 ?붾㈃ |
+| 移대뱶 ?뺤젙 | 理쒖쥌 移대뱶 ?붾㈃, ?ъ떆??遺덇? |
+| 愿묎퀬 ?щ퐨湲?| ?덈궡 紐⑤떖 ??1.5珥?濡쒕뵫(mock) ????移대뱶 理쒖쥌 ?뺤젙 |
+| ???ъ떆??| ?ㅻ뒛 湲곕줉 ?좎?, 戮묎린 遺덇? |
+| ?ㅼ쓬???묒냽 | ?덉뿉???ㅼ떆 "?ㅻ뒛 移대뱶 戮묎린" 媛??|
+| 湲곕줉 ?붾㈃ | 理쒓렐 7??移대뱶 紐⑸줉 ?쒖떆 |
+| 而щ젆???붾㈃ | ?띾뱷 罹먮┃???쒖꽦, 誘명쉷???좉툑 ?쒖떆 (24醫? |
+

@@ -15,7 +15,7 @@ import {
   getCollection,
 } from '../storage/cuteDrawStorage';
 import { drawRandomCard, drawRandomCardExcept } from '../utils/random';
-import { loadAd, showAd } from '../../../lib/ads';
+import { loadRewardAd, showRewardAd } from '../../../lib/ads';
 
 export interface UseCuteDrawReturn {
   screen: Screen;
@@ -82,7 +82,7 @@ export function useCuteDraw(): UseCuteDrawReturn {
       setScreen('result');
 
       // 결과 화면 진입 시 광고 사전 로드
-      loadAd().catch(() => {/* 무시 */});
+      loadRewardAd().catch(() => {/* 무시 */});
     }, 1200);
   }, [isDrawing]);
 
@@ -108,7 +108,7 @@ export function useCuteDraw(): UseCuteDrawReturn {
     if (!todayRecord) return;
 
     setIsAdLoading(true);
-    const result = await showAd();
+    const result = await showRewardAd();
     setIsAdLoading(false);
 
     if (result === 'success') {

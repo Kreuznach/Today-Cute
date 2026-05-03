@@ -1,91 +1,119 @@
-# 개발 진행 상황
+﻿# 媛쒕컻 吏꾪뻾 ?곹솴
 
-## 현재 상태: MVP v0.1.0 완료 ✅
+## ?꾩옱 ?곹깭: MVP v0.2.0 ?꾨즺 ??
 
-**작업 완료일**: 2026-05-01
+**?묒뾽 ?꾨즺??*: 2026-05-03
 
 ---
 
-## 완료된 작업
+## ?꾨즺???묒뾽
 
-### 프로젝트 설정
-- [x] Vite 5 + React 18 + TypeScript 5 프로젝트 구성
-- [x] Tailwind CSS 3 설정 (모바일 최적화 커스텀 테마)
-- [x] 모바일 Safe Area 대응 (`env(safe-area-inset-*)`)
-- [x] 빌드 성공 확인
+### ?꾨줈?앺듃 ?ㅼ젙
+- [x] Vite 5 + React 18 + TypeScript 5 ?꾨줈?앺듃 援ъ꽦
+- [x] Tailwind CSS 3 ?ㅼ젙 (紐⑤컮??理쒖쟻??而ㅼ뒪? ?뚮쭏)
+- [x] 紐⑤컮??Safe Area ???(`env(safe-area-inset-*)`)
+- [x] 鍮뚮뱶 ?깃났 ?뺤씤
 
-### 타입 및 데이터
-- [x] `CuteCardResult`, `CuteCharacter` 등 핵심 타입 정의
-- [x] 12종 캐릭터 × 3장 = 36장 카드 데이터 작성
-- [x] 캐릭터별 이모지, 그라디언트 색상 지정
+### ???諛??곗씠??
+- [x] `CuteCardResult`, `CuteCharacter` ???듭떖 ????뺤쓽
+- [x] 12醫?罹먮┃??횞 3??= 36??移대뱶 ?곗씠???묒꽦
+- [x] 罹먮┃?곕퀎 ?대え吏, 洹몃씪?붿뼵???됱긽 吏??
 
-### 유틸리티
-- [x] KST 기준 날짜 계산 (`getTodayKst`, `isToday`)
-- [x] 랜덤 카드 뽑기 (`drawRandomCard`, `drawRandomCardExcept`)
+### ?좏떥由ы떚
+- [x] KST 湲곗? ?좎쭨 怨꾩궛 (`getTodayKst`, `isToday`)
+- [x] ?쒕뜡 移대뱶 戮묎린 (`drawRandomCard`, `drawRandomCardExcept`)
 - [x] localStorage CRUD (`cuteDrawStorage.ts`)
-  - 오늘 기록 저장/복원/확정
-  - 히스토리 저장 (최대 30일)
-  - 컬렉션 업데이트
+  - ?ㅻ뒛 湲곕줉 ???蹂듭썝/?뺤젙
+  - ?덉뒪?좊━ ???(理쒕? 30??
+  - 而щ젆???낅뜲?댄듃
 
-### 광고 레이어
-- [x] 광고 추상화 (`src/lib/ads.ts`)
-- [x] 개발 환경: mock 모드 (1.5초 후 성공 시뮬레이션)
-- [x] 실제 연동 준비: `AD_GROUP_ID` 상수 + 주석 가이드
+### 愿묎퀬 ?덉씠??
+- [x] 愿묎퀬 異붿긽??(`src/lib/ads.ts`)
+- [x] 媛쒕컻 ?섍꼍: mock 紐⑤뱶 (1.5珥????깃났 ?쒕??덉씠??
+- [x] ?ㅼ젣 ?곕룞 以鍮? `AD_GROUP_ID` ?곸닔 + 二쇱꽍 媛?대뱶
 
-### 핵심 훅
-- [x] `useCuteDraw` - 전체 앱 상태 관리
-  - 하루 1회 뽑기 제한
-  - 재뽑기 1회 제한
-  - 광고 실패 시 기존 카드 유지
-  - 화면 전환 로직
+### ?듭떖 ??
 
-### 컴포넌트
-- [x] `CuteCard` - 크기별 (sm/md/lg) 카드 UI
-- [x] `DrawBox` - 뽑기 애니메이션 박스
-- [x] `CharacterCollection` - 12종 컬렉션 그리드
-- [x] `HistoryList` - 기록 목록 + 상세 보기
+### ?듭떖 ??
+- [x] `useCuteDraw` - ?꾩껜 ???곹깭 愿由?
+  - ?섎（ 1??戮묎린 ?쒗븳
+  - ?щ퐨湲?1???쒗븳
+  - 愿묎퀬 ?ㅽ뙣 ??湲곗〈 移대뱶 ?좎?
+  - ?붾㈃ ?꾪솚 濡쒖쭅
 
-### 화면 (6개)
-- [x] `HomeScreen` - 홈 (오늘 카드 상태 표시)
-- [x] `DrawScreen` - 카드팩 애니메이션 뽑기
-- [x] `ResultScreen` - 결과 + 재뽑기 모달
-- [x] `FinalCardScreen` - 최종 카드 확인
-- [x] `HistoryScreen` - 최근 7일 기록
-- [x] `CollectionScreen` - 12종 컬렉션
+### 而댄룷?뚰듃
+- [x] `CuteCard` - ?ш린蹂?(sm/md/lg) 移대뱶 UI
+- [x] `DrawBox` - 戮묎린 ?좊땲硫붿씠??諛뺤뒪
+- [x] `CharacterCollection` - 12醫?而щ젆??洹몃━??
+- [x] `HistoryList` - 湲곕줉 紐⑸줉 + ?곸꽭 蹂닿린
 
-### 문서
-- [x] `docs/01-overview.md` - 프로젝트 개요
-- [x] `docs/02-mvp-spec.md` - MVP 상세 명세
-- [x] `docs/03-card-dictionary.md` - 카드 사전
-- [x] `docs/04-ad-flow.md` - 광고 재뽑기 플로우
-- [x] `docs/05-apps-in-toss-checklist.md` - 검수 체크리스트
-- [x] `docs/06-future-supabase-schema.md` - Supabase 확장 스키마
-- [x] `README.md` 업데이트
+### ?붾㈃ (6媛?
+- [x] `HomeScreen` - ??(?ㅻ뒛 移대뱶 ?곹깭 ?쒖떆)
+- [x] `DrawScreen` - 移대뱶???좊땲硫붿씠??戮묎린
+- [x] `ResultScreen` - 寃곌낵 + ?щ퐨湲?紐⑤떖
+- [x] `FinalCardScreen` - 理쒖쥌 移대뱶 ?뺤씤
+- [x] `HistoryScreen` - 理쒓렐 7??湲곕줉
+- [x] `CollectionScreen` - 12醫?而щ젆??
 
----
-
-## 빌드 결과
-
-```
-dist/index.html                   0.80 kB │ gzip:  0.46 kB
-dist/assets/index-*.css          18.69 kB │ gzip:  4.08 kB
-dist/assets/index-*.js           33.17 kB │ gzip: 11.60 kB
-dist/assets/react-*.js          140.87 kB │ gzip: 45.26 kB
-✓ built in 810ms
-```
+### 臾몄꽌
+- [x] `docs/01-overview.md` - ?꾨줈?앺듃 媛쒖슂
+- [x] `docs/02-mvp-spec.md` - MVP ?곸꽭 紐낆꽭
+- [x] `docs/03-card-dictionary.md` - 移대뱶 ?ъ쟾 (96醫낆쑝濡??낅뜲?댄듃)
+- [x] `docs/04-ad-flow.md` - 愿묎퀬 ?щ퐨湲??뚮줈??(硫??愿묎퀬 異붽?)
+- [x] `docs/05-apps-in-toss-checklist.md` - 寃??泥댄겕由ъ뒪??(.ait 鍮뚮뱶, ?대?吏 媛?대뱶 異붽?)
+- [x] `docs/06-future-supabase-schema.md` - Supabase ?뺤옣 ?ㅽ궎留?
+- [x] `README.md` ?낅뜲?댄듃
 
 ---
 
-## 다음 작업 (v0.2.0 예정)
+## v0.2.0 異붽? ?묒뾽 (2026-05-03)
 
-- [ ] 실제 이미지 에셋 추가 (`public/assets/characters/`)
-- [ ] Apps in Toss 콘솔 광고 그룹 ID 등록
-- [ ] Apps in Toss 내부 테스트 링크로 검수
-- [ ] 번들 업로드 및 검수 제출
+### 愿묎퀬 硫??ID 吏??
+- [x] `src/lib/ads.ts` ?꾨㈃ ?ъ옉?? Apps in Toss v2 API + 硫??愿묎퀬
+  - ?숈쁺??蹂댁긽??`REWARD_AD_ID = 'ait.v2.live.be5532d27f574f4b'`
+  - 諛곕꼫 愿묎퀬 `BANNER_AD_ID = 'ait.v2.live.PENDING'` (諛쒓툒 ?湲?
+  - `loadAd(adId)`, `loadRewardAd()`, `showRewardAd()`, `showBannerAd()`, `hideBannerAd()`
+  - `window.AppsInToss` v2 ?명꽣?섏씠??????좎뼵
+- [x] `useCuteDraw.ts`: `loadAd/showAd` ??`loadRewardAd/showRewardAd` 援먯껜
+- [x] `HomeScreen.tsx`: 諛곕꼫 愿묎퀬 ?몄텧/?④? (`useEffect`) + 媛쒕컻 ?섍꼍 ?뚮젅?댁뒪???
 
-## 장기 로드맵
+### 罹먮┃?걔룹뭅???뺤옣
+- [x] 湲곗〈 12醫?罹먮┃??媛?4踰덉㎏ 移대뱶(`seasonal`) 異붽?
+- [x] ?좉퇋 12醫?罹먮┃??異붽? (媛?4移대뱶): ?쒖닔???? ?좉린??臾몄뼱, ?⑹뵫??媛쒓뎄由? ?ъ숴??肄붿븣?? 轅덇씀??怨좊옒, ?꾩묠 ?? 吏?쒕줈??遺?됱씠, ?⑷컧???ъ옄, ?됱삩??肄붾겮由? 苑껊굹鍮? ?꾧린 ?ъ뒾, ?됰났???쇱?
+- [x] 珥?移대뱶: 36醫???96醫?(24 罹먮┃??횞 4移대뱶)
 
-- [ ] 캐릭터 24종 확장 (계절/날씨)
-- [ ] Supabase 연동 (docs/06-future-supabase-schema.md 참조)
-- [ ] Apps in Toss 로그인 연동
-- [ ] 히스토리 서버 동기화
+### 鍮뚮뱶 .ait ?뺤떇
+- [x] `vite-plugin-zip-pack` ?ㅼ튂 諛?vite.config.ts ?ㅼ젙
+- [x] `npm run build` ??`today-cute-pick.ait` ?먮룞 ?앹꽦 (?꾨줈?앺듃 猷⑦듃)
+- [x] `build:ait` ?ㅽ겕由쏀듃 異붽? (?숈씪 ?숈옉, 紐낆떆??紐낆묶)
+- [x] ???댁긽 `dist/` zip ?섎룞 ?뺤텞 遺덊븘??
+
+---
+
+## 鍮뚮뱶 寃곌낵 (v0.2.0)
+
+```
+dist/index.html                   0.80 kB ??gzip:  0.46 kB
+dist/assets/index-*.css          18.70 kB ??gzip:  4.09 kB
+dist/assets/index-*.js           51.73 kB ??gzip: 18.50 kB
+dist/assets/react-*.js          140.87 kB ??gzip: 45.26 kB
+today-cute-pick.ait               68.57 kB
+??built in 2.92s
+```
+
+---
+
+## ?ㅼ쓬 ?묒뾽 (v0.3.0 ?덉젙)
+
+- [ ] ?ㅼ젣 ?대?吏 ?먯뀑 異붽? (`public/assets/characters/`, 24醫?
+- [ ] Apps in Toss 肄섏넄 諛곕꼫 愿묎퀬 洹몃９ ID ?깅줉 (`BANNER_AD_ID` ?낅뜲?댄듃)
+- [ ] Apps in Toss ?대? ?뚯뒪??留곹겕濡?寃??
+- [ ] 踰덈뱾 ?낅줈??諛?寃???쒖텧
+
+## ?κ린 濡쒕뱶留?
+
+- [ ] 罹먮┃??24醫??뺤옣 (怨꾩젅/?좎뵪)
+- [ ] Supabase ?곕룞 (docs/06-future-supabase-schema.md 李몄“)
+- [ ] Apps in Toss 濡쒓렇???곕룞
+- [ ] ?덉뒪?좊━ ?쒕쾭 ?숆린??
+

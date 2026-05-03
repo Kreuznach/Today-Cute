@@ -1,81 +1,82 @@
-# 오늘의 귀여운 뽑기 (today-cute-draw)
+﻿# ?ㅻ뒛??洹?ъ슫 戮묎린 (today-cute-pick)
 
-> Toss in App(WebView) 미니앱 — 하루 한 번, 오늘의 귀여운 응원 카드를 뽑아보세요
+> Toss in App(WebView) 誘몃땲?????섎（ ??踰? ?ㅻ뒛??洹?ъ슫 ?묒썝 移대뱶瑜?戮묒븘蹂댁꽭??
 
-## 소개
+## ?뚭컻
 
-사용자가 하루에 한 번 귀여운 캐릭터 카드를 뽑고, 오늘의 응원 메시지와 작은 행동 제안을 받는 Apps in Toss 미니앱입니다.
+?ъ슜?먭? ?섎（????踰?洹?ъ슫 罹먮┃??移대뱶瑜?戮묎퀬, ?ㅻ뒛???묒썝 硫붿떆吏? ?묒? ?됰룞 ?쒖븞??諛쏅뒗 Apps in Toss 誘몃땲?깆엯?덈떎.
 
-- 12종 귀여운 캐릭터 카드
-- 하루 1회 뽑기 + 광고 시청 후 재뽑기 1회
-- 최근 7일 기록 & 컬렉션 화면
-- localStorage 저장 (새로고침 후에도 유지)
+- 12醫?洹?ъ슫 罹먮┃??移대뱶
+- ?섎（ 1??戮묎린 + 愿묎퀬 ?쒖껌 ???щ퐨湲?1??
+- 理쒓렐 7??湲곕줉 & 而щ젆???붾㈃
+- localStorage ???(?덈줈怨좎묠 ?꾩뿉???좎?)
 
-## 실행 방법
+## ?ㅽ뻾 諛⑸쾿
 
 ```bash
-# 의존성 설치
+# ?섏〈???ㅼ튂
 npm install
 
-# 개발 서버 시작
+# 媛쒕컻 ?쒕쾭 ?쒖옉
 npm run dev
-# → http://localhost:5173
+# ??http://localhost:5173
 ```
 
-## 빌드 방법
+## 鍮뚮뱶 諛⑸쾿
 
 ```bash
-# 프로덕션 빌드
+# ?꾨줈?뺤뀡 鍮뚮뱶
 npm run build
-# → dist/ 폴더에 번들 생성
+# ??dist/ ?대뜑??踰덈뱾 ?앹꽦
 
-# 빌드 미리보기
+# 鍮뚮뱶 誘몃━蹂닿린
 npm run preview
 
-# 타입 체크
+# ???泥댄겕
 npm run type-check
 ```
 
-## Apps in Toss 배포
+## Apps in Toss 諛고룷
 
-1. `npm run build` 실행
-2. `dist/` 폴더를 zip으로 압축
-3. Apps in Toss 콘솔에서 번들 업로드
-4. 검수 제출 전 내부 테스트 링크로 확인
+1. `npm run build` ?ㅽ뻾
+2. `dist/` ?대뜑瑜?zip?쇰줈 ?뺤텞
+3. Apps in Toss 肄섏넄?먯꽌 踰덈뱾 ?낅줈??
+4. 寃???쒖텧 ???대? ?뚯뒪??留곹겕濡??뺤씤
 
-## 광고 그룹 ID 설정
+## 愿묎퀬 洹몃９ ID ?ㅼ젙
 
-실제 광고 연동 시 `src/lib/ads.ts`의 `AD_GROUP_ID`를 수정하세요:
+?ㅼ젣 愿묎퀬 ?곕룞 ??`src/lib/ads.ts`??`AD_GROUP_ID`瑜??섏젙?섏꽭??
 
 ```ts
 // src/lib/ads.ts
-const AD_GROUP_ID = 'YOUR_AD_GROUP_ID_HERE'; // ← 발급받은 ID 입력
+const AD_GROUP_ID = 'YOUR_AD_GROUP_ID_HERE'; // ??諛쒓툒諛쏆? ID ?낅젰
 ```
 
-## 이미지 에셋 추가
+## ?대?吏 ?먯뀑 異붽?
 
-현재 이모지 + CSS 그라디언트로 캐릭터를 표현합니다.  
-실제 이미지는 `public/assets/characters/` 폴더에 추가하고,  
-`src/features/cute-draw/data/characters.ts`의 `assetPath` 필드를 채우세요.
+?꾩옱 ?대え吏 + CSS 洹몃씪?붿뼵?몃줈 罹먮┃?곕? ?쒗쁽?⑸땲??  
+?ㅼ젣 ?대?吏??`public/assets/characters/` ?대뜑??異붽??섍퀬,  
+`src/features/cute-draw/data/characters.ts`??`assetPath` ?꾨뱶瑜?梨꾩슦?몄슂.
 
-## 기술 스택
+## 湲곗닠 ?ㅽ깮
 
-| 항목 | 내용 |
+| ??ぉ | ?댁슜 |
 |------|------|
-| 프레임워크 | React 18 + TypeScript |
-| 빌드 도구 | Vite 5 |
-| 스타일 | Tailwind CSS 3 |
-| 저장소 | localStorage |
-| 광고 | mock 모드 → Apps in Toss 광고 SDK |
+| ?꾨젅?꾩썙??| React 18 + TypeScript |
+| 鍮뚮뱶 ?꾧뎄 | Vite 5 |
+| ?ㅽ???| Tailwind CSS 3 |
+| ??μ냼 | localStorage |
+| 愿묎퀬 | mock 紐⑤뱶 ??Apps in Toss 愿묎퀬 SDK |
 
-## 문서
+## 臾몄꽌
 
-| 문서 | 내용 |
+| 臾몄꽌 | ?댁슜 |
 |------|------|
-| [docs/PROGRESS.md](docs/PROGRESS.md) | 개발 진행 상황 |
-| [docs/01-overview.md](docs/01-overview.md) | 프로젝트 개요 |
-| [docs/02-mvp-spec.md](docs/02-mvp-spec.md) | MVP 상세 명세 |
-| [docs/03-card-dictionary.md](docs/03-card-dictionary.md) | 카드 사전 (36종) |
-| [docs/04-ad-flow.md](docs/04-ad-flow.md) | 광고 재뽑기 플로우 |
-| [docs/05-apps-in-toss-checklist.md](docs/05-apps-in-toss-checklist.md) | 검수 체크리스트 |
-| [docs/06-future-supabase-schema.md](docs/06-future-supabase-schema.md) | Supabase 확장 스키마 |
+| [docs/PROGRESS.md](docs/PROGRESS.md) | 媛쒕컻 吏꾪뻾 ?곹솴 |
+| [docs/01-overview.md](docs/01-overview.md) | ?꾨줈?앺듃 媛쒖슂 |
+| [docs/02-mvp-spec.md](docs/02-mvp-spec.md) | MVP ?곸꽭 紐낆꽭 |
+| [docs/03-card-dictionary.md](docs/03-card-dictionary.md) | 移대뱶 ?ъ쟾 (36醫? |
+| [docs/04-ad-flow.md](docs/04-ad-flow.md) | 愿묎퀬 ?щ퐨湲??뚮줈??|
+| [docs/05-apps-in-toss-checklist.md](docs/05-apps-in-toss-checklist.md) | 寃??泥댄겕由ъ뒪??|
+| [docs/06-future-supabase-schema.md](docs/06-future-supabase-schema.md) | Supabase ?뺤옣 ?ㅽ궎留?|
+

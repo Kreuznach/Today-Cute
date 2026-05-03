@@ -6,6 +6,13 @@
 사용자가 첫 번째 카드를 확인한 후 광고를 시청하면 한 번 더 뽑을 수 있으며,  
 두 번째 카드는 오늘의 최종 카드로 자동 저장됩니다.
 
+## 광고 구성
+
+| 타입 | 용도 | 광고 그룹 ID | 노출 위치 |
+|------|------|-------------|-----------|
+| 동영상 보상형 | 카드 재뽑기 | `ait.v2.live.be5532d27f574f4b` | 결과 화면 |
+| 이미지 배너형 | 브랜드 노출 | `ait.v2.live.PENDING` *(발급 대기)* | 메인화면 하단 |
+
 ## 플로우 다이어그램
 
 ```
@@ -33,6 +40,16 @@
               └─ 광고 실패/취소 → 결과 화면 유지 (기존 카드 유지)
 ```
 
+## 배너 광고 플로우
+
+```
+홈 화면 진입
+  │
+  └─ showBannerAd() 호출 → AppsInToss SDK가 하단에 배너 렌더링
+        │
+        └─ 홈 화면 이탈 시 hideBannerAd() 호출
+```
+
 ## 광고 구현 상세
 
 ### 현재: Mock 모드
@@ -40,36 +57,44 @@
 `src/lib/ads.ts`에서 관리합니다.
 
 ```ts
-// 개발 환경에서는 1.5초 후 자동 성공
-if (mockAdMode) {
+// 개발 환경 또는 PENDING ID일 때 mock 모드 활성화
+function isMockMode(adId: string): boolean {
+  return import.meta.env.DEV || adId.includes('PENDING');
+}
+
+// 동영상 광고: 1.5초 후 자동 성공
+if (isMockMode(REWARD_AD_ID)) {
   return new Promise(resolve => setTimeout(() => resolve('success'), 1500));
 }
+
+// 배너 광고: 개발 환경에서는 HTML 플레이스홀더로 표시 (HomeScreen.tsx)
 ```
 
-### 실제 연동: Apps in Toss 광고 SDK
+### 실제 연동: Apps in Toss v2 API
 
-1. **광고 그룹 ID 설정**  
-   `src/lib/ads.ts` 상단의 `AD_GROUP_ID` 상수에 입력:
-   ```ts
-   const AD_GROUP_ID = 'YOUR_AD_GROUP_ID_HERE'; // ← 여기에 입력
-   ```
+**광고 그룹 ID 설정** (`src/lib/ads.ts`):
+```ts
+export const REWARD_AD_ID = 'ait.v2.live.be5532d27f574f4b'; // 동영상 보상형 (설정 완료)
+export const BANNER_AD_ID = 'ait.v2.live.PENDING';           // 배너 (발급 후 교체)
+```
 
-2. **사전 로드 (Pre-load)**  
-   결과 화면 진입 시 `loadAd()`를 호출해 광고를 미리 로드합니다.  
-   (`useCuteDraw.ts`의 `confirmDraw()` 완료 시 자동 호출)
+**동영상 보상형 광고 연동:**
+```ts
+// 사전 로드
+await window.AppsInToss?.loadAd?.(REWARD_AD_ID);
 
-3. **광고 노출**  
-   사용자가 확인 버튼 클릭 시 `showAd()`를 호출합니다.
+// 노출 (result: 'completed' | 'cancelled')
+const result = await window.AppsInToss?.showAd?.(REWARD_AD_ID);
+```
 
-4. **실제 SDK 교체 예시**:
-   ```ts
-   // loadAd
-   await window.AppsInToss?.loadAdMob?.(AD_GROUP_ID);
-   
-   // showAd
-   const result = await window.AppsInToss?.showAdMob?.(AD_GROUP_ID);
-   // result: 'completed' | 'cancelled' | undefined
-   ```
+**배너 광고 연동:**
+```ts
+// 노출 (메인화면 하단)
+await window.AppsInToss?.showBannerAd?.(BANNER_AD_ID, { position: 'bottom' });
+
+// 숨김 (화면 이탈 시)
+await window.AppsInToss?.hideBannerAd?.(BANNER_AD_ID);
+```
 
 ## 금지 문구
 

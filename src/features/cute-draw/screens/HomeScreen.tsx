@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { characters } from '../data/characters';
 import { formatDateKr } from '../utils/date';
+import { showBannerAd, hideBannerAd } from '../../../lib/ads';
 import type { CuteTodayRecord, Screen } from '../types';
 
 interface HomeScreenProps {
@@ -13,6 +15,12 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
   const character = finalCard
     ? characters.find((c) => c.characterKey === finalCard.characterKey)
     : null;
+
+  // 홈 화면 진입 시 배너 광고 노출, 이탈 시 숨김
+  useEffect(() => {
+    showBannerAd();
+    return () => { hideBannerAd(); };
+  }, []);
 
   return (
     <div className="screen flex flex-col">
@@ -100,14 +108,20 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
             <span className="text-2xl">🗂️</span>
             <div>
               <p className="text-sm font-semibold text-cute-text">컬렉션</p>
-              <p className="text-xs text-cute-subtext">12종 캐릭터</p>
+              <p className="text-xs text-cute-subtext">24종 캐릭터</p>
             </div>
           </button>
         </div>
       </div>
 
-      {/* 하단 여백 */}
-      <div className="h-6" />
+      {/* 하단 배너 광고 영역 (개발 환경: 플레이스홀더, 실제: AppsInToss SDK가 처리) */}
+      {import.meta.env.DEV && (
+        <div className="px-5 pb-safe">
+          <div className="h-14 bg-cute-soft border border-dashed border-cute-border rounded-xl flex items-center justify-center">
+            {/* <p className="text-xs text-cute-subtext">배너 광고 영역 (BANNER_AD_ID 발급 후 활성화)</p> */}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
