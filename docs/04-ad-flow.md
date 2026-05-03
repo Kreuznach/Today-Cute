@@ -11,7 +11,8 @@
 | 타입 | 용도 | 광고 그룹 ID | 노출 위치 |
 |------|------|-------------|-----------|
 | 동영상 보상형 | 카드 재뽑기 | `ait.v2.live.be5532d27f574f4b` | 결과 화면 |
-| 이미지 배너형 | 브랜드 노출 | `ait.v2.live.PENDING` *(발급 대기)* | 메인화면 하단 |
+
+> 배너 광고는 현재 미구현 상태입니다. TossAd DOM API 연동이 필요하며, 향후 v0.3.0 범위에서 추가 예정입니다.
 
 ## 플로우 다이어그램
 
@@ -33,7 +34,7 @@
         └─ [광고 보고 뽑기]
               │
               ▼
-           광고 로딩 (mockAdMode: 1.5초 딜레이)
+           광고 로딩 (개발 환경: 1.5초 딜레이 시뮬레이션)
               │
               ├─ 광고 성공 → 새 카드 뽑기 → 최종 카드 화면 (자동 확정)
               │
@@ -42,58 +43,46 @@
 
 ## 배너 광고 플로우
 
-```
-홈 화면 진입
-  │
-  └─ showBannerAd() 호출 → AppsInToss SDK가 하단에 배너 렌더링
-        │
-        └─ 홈 화면 이탈 시 hideBannerAd() 호출
-```
+> 현재 미구현. 향후 TossAd DOM API 연동 시 추가 예정.
 
 ## 광고 구현 상세
 
-### 현재: Mock 모드
+### 현재: GoogleAdMob API (v0.2.0 기준)
 
-`src/lib/ads.ts`에서 관리합니다.
+`src/lib/ads.ts`에서 `@apps-in-toss/web-framework`의 `GoogleAdMob` API를 사용합니다.
 
 ```ts
-// 개발 환경 또는 PENDING ID일 때 mock 모드 활성화
-function isMockMode(adId: string): boolean {
-  return import.meta.env.DEV || adId.includes('PENDING');
-}
+import { GoogleAdMob } from '@apps-in-toss/web-framework';
 
-// 동영상 광고: 1.5초 후 자동 성공
-if (isMockMode(REWARD_AD_ID)) {
-  return new Promise(resolve => setTimeout(() => resolve('success'), 1500));
-}
+// AIT 환경 여부 확인
+const isSupported = GoogleAdMob.loadAppsInTossAdMob.isSupported();
 
-// 배너 광고: 개발 환경에서는 HTML 플레이스홀더로 표시 (HomeScreen.tsx)
+// 광고 사전 로드 (이벤트 기반)
+const cleanup = GoogleAdMob.loadAppsInTossAdMob({
+  options: { adGroupId: 'ait.v2.live.be5532d27f574f4b' },
+  onEvent: (event) => { if (event.type === 'loaded') { cleanup(); resolve(); } },
+  onError: () => { cleanup(); resolve(); },
+});
+
+// 광고 노출 (이벤트 기반)
+GoogleAdMob.showAppsInTossAdMob({
+  options: { adGroupId: 'ait.v2.live.be5532d27f574f4b' },
+  onEvent: (event) => {
+    if (event.type === 'userEarnedReward') rewarded = true;
+    if (event.type === 'dismissed') resolve(rewarded ? 'success' : 'cancelled');
+    if (event.type === 'failedToShow') resolve('failed');
+  },
+  onError: () => resolve('failed'),
+});
 ```
 
-### 실제 연동: Apps in Toss v2 API
+**개발 환경 (AIT 미지원 시):** `isAitSupported() === false`이면 1.5초 딜레이 후 자동 `'success'` 반환으로 시뮬레이션.
+
+**테스트 광고 ID:** `'ait-ad-test-rewarded-id'` — 개발 환경 또는 `VITE_AD_ENV=test` 시 자동 적용.
 
 **광고 그룹 ID 설정** (`src/lib/ads.ts`):
 ```ts
 export const REWARD_AD_ID = 'ait.v2.live.be5532d27f574f4b'; // 동영상 보상형 (설정 완료)
-export const BANNER_AD_ID = 'ait.v2.live.PENDING';           // 배너 (발급 후 교체)
-```
-
-**동영상 보상형 광고 연동:**
-```ts
-// 사전 로드
-await window.AppsInToss?.loadAd?.(REWARD_AD_ID);
-
-// 노출 (result: 'completed' | 'cancelled')
-const result = await window.AppsInToss?.showAd?.(REWARD_AD_ID);
-```
-
-**배너 광고 연동:**
-```ts
-// 노출 (메인화면 하단)
-await window.AppsInToss?.showBannerAd?.(BANNER_AD_ID, { position: 'bottom' });
-
-// 숨김 (화면 이탈 시)
-await window.AppsInToss?.hideBannerAd?.(BANNER_AD_ID);
 ```
 
 ## 금지 문구

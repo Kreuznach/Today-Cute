@@ -1,119 +1,94 @@
+import { GoogleAdMob } from '@apps-in-toss/web-framework';
+
 /**
- * 광고 추상화 레이어 — Apps in Toss v2.0.0+
+ * 광고 추상화 레이어 — Apps in Toss GoogleAdMob API
  *
  * 광고 타입:
  *  - 'reward' : 동영상 보상형 광고 (카드 재뽑기)
- *  - 'banner' : 이미지 배너 광고 (메인화면 하단 노출)
  *
- * 개발/테스트: mockAdMode=true → 딜레이 후 성공 시뮬레이션
- * 실제 환경: window.AppsInToss v2 API 사용
+ * 개발/미지원 환경: isSupported()=false → 1.5초 딜레이 후 성공 시뮬레이션
+ * 실제 환경: GoogleAdMob.loadAppsInTossAdMob / showAppsInTossAdMob 사용
  *
- * 실제 연동 API:
- *  - window.AppsInToss.loadAd(adGroupId)          → 사전 로드
- *  - window.AppsInToss.showAd(adGroupId)           → 동영상 광고 노출
- *  - window.AppsInToss.showBannerAd(adGroupId)     → 배너 광고 노출
- *  - window.AppsInToss.hideBannerAd(adGroupId)     → 배너 광고 숨김
+ * 참고:
+ *  - VITE_AD_ENV=test        → 공식 테스트 ID 강제 사용
+ *  - VITE_AD_ENV=production  → 프로덕션 ID 강제 사용
+ *  - 미설정                  → DEV 빌드면 테스트 ID, 아니면 프로덕션 ID
  */
 
-// ===== Apps in Toss v2 광고 그룹 ID =====
-
-/** 동영상 보상형 광고 (카드 재뽑기) */
+/** 동영상 보상형 광고 그룹 ID (Apps in Toss 콘솔에서 발급) */
 export const REWARD_AD_ID = 'ait.v2.live.be5532d27f574f4b';
 
-/** 배너 광고 (메인화면 하단) — 콘솔 발급 후 교체 */
-export const BANNER_AD_ID = 'ait.v2.live.77ed12df738d4d5f';
+/** 공식 테스트 전용 광고 ID — 실제 ID로 테스트하면 정책 위반 */
+const AD_ID_TEST = 'ait-ad-test-rewarded-id';
 
-// ===== Apps in Toss v2 window 인터페이스 선언 =====
-declare global {
-  interface Window {
-    AppsInToss?: {
-      /** 광고 사전 로드 (동영상/배너 공통) */
-      loadAd?: (adGroupId: string) => Promise<void>;
-      /** 동영상 보상형 광고 노출 → 'completed' | 'cancelled' */
-      showAd?: (adGroupId: string) => Promise<'completed' | 'cancelled'>;
-      /** 배너 광고 노출 */
-      showBannerAd?: (adGroupId: string, options?: { position?: 'bottom' | 'top' }) => Promise<void>;
-      /** 배너 광고 숨김 */
-      hideBannerAd?: (adGroupId: string) => Promise<void>;
-    };
-  }
-}
-
-// ===== 타입 =====
 export type AdResult = 'success' | 'failed' | 'cancelled';
 
-/** 광고 ID별 로드 상태 맵 */
-const adLoadedMap: Record<string, boolean> = {};
-
-function isMockMode(adId: string): boolean {
-  return import.meta.env.DEV || adId.includes('PENDING') || adId === 'YOUR_AD_GROUP_ID_HERE';
+function getAdId(): string {
+  const adEnv = import.meta.env.VITE_AD_ENV;
+  if (adEnv === 'test') return AD_ID_TEST;
+  if (adEnv === 'production') return REWARD_AD_ID;
+  return import.meta.env.DEV ? AD_ID_TEST : REWARD_AD_ID;
 }
 
-// ===== 공통 광고 로드 =====
-
-/**
- * 광고 사전 로드 (adId 지정)
- * 결과 화면 진입 시 미리 호출해 두면 광고 클릭 시 빠르게 노출됩니다.
- */
-export async function loadAd(adId: string): Promise<void> {
-  if (isMockMode(adId)) {
-    adLoadedMap[adId] = true;
-    return;
-  }
+function isAitSupported(): boolean {
   try {
-    await window.AppsInToss?.loadAd?.(adId);
-    adLoadedMap[adId] = true;
+    return GoogleAdMob.loadAppsInTossAdMob.isSupported() === true;
   } catch {
-    adLoadedMap[adId] = false;
+    return false;
   }
 }
 
-// ===== 동영상 보상형 광고 (카드 재뽑기) =====
+// ===== 동영상 보상형 광고 =====
 
-/** 동영상 보상형 광고 사전 로드 */
+/** 광고 사전 로드. 결과 화면 진입 시 호출해 시청 시 빠르게 노출합니다. */
 export async function loadRewardAd(): Promise<void> {
-  return loadAd(REWARD_AD_ID);
+  if (!isAitSupported()) return; // 미지원 환경: skip
+
+  return new Promise<void>((resolve) => {
+    const cleanup = GoogleAdMob.loadAppsInTossAdMob({
+      options: { adGroupId: getAdId() },
+      onEvent: (event) => {
+        if (event.type === 'loaded') {
+          cleanup();
+          resolve();
+        }
+      },
+      onError: () => {
+        cleanup();
+        resolve(); // 로드 실패는 무시 (show 단계에서 처리)
+      },
+    });
+  });
 }
 
 /**
  * 동영상 보상형 광고 노출
- * 시청 완료: 'success' / 취소: 'cancelled' / 실패: 'failed'
+ * - 미지원/개발 환경: 1.5초 딜레이 후 'success'
+ * - 지원 환경: 광고 노출 → userEarnedReward 수신 시 'success'
  */
 export async function showRewardAd(): Promise<AdResult> {
-  if (isMockMode(REWARD_AD_ID)) {
-    return new Promise((resolve) => {
-      setTimeout(() => resolve('success'), 1500);
+  if (!isAitSupported()) {
+    await new Promise<void>((r) => setTimeout(r, 1500));
+    return 'success';
+  }
+
+  return new Promise<AdResult>((resolve) => {
+    let rewarded = false;
+    GoogleAdMob.showAppsInTossAdMob({
+      options: { adGroupId: getAdId() },
+      onEvent: (event) => {
+        if (event.type === 'userEarnedReward') rewarded = true;
+        if (event.type === 'dismissed') resolve(rewarded ? 'success' : 'cancelled');
+        if (event.type === 'failedToShow') resolve('failed');
+      },
+      onError: () => resolve('failed'),
     });
-  }
-  if (!adLoadedMap[REWARD_AD_ID]) return 'failed';
-  try {
-    const result = await window.AppsInToss?.showAd?.(REWARD_AD_ID);
-    if (result === 'completed') return 'success';
-    if (result === 'cancelled') return 'cancelled';
-    return 'failed';
-  } catch {
-    return 'failed';
-  }
+  });
 }
 
-// ===== 배너 광고 (메인화면 하단) =====
+// ===== 배너 광고 (stub) =====
+// GoogleAdMob은 전면 보상형 광고 전용입니다.
+// 배너는 TossAd DOM API가 필요하나 현재 미구현 상태이므로 stub 처리합니다.
 
-/** 배너 광고 노출 */
-export async function showBannerAd(): Promise<void> {
-  if (isMockMode(BANNER_AD_ID)) return; // 개발 환경: 시각적 플레이스홀더 사용
-  try {
-    await window.AppsInToss?.showBannerAd?.(BANNER_AD_ID, { position: 'bottom' });
-  } catch {
-    // 배너 실패는 앱 동작에 영향 없음
-  }
-}
-
-/** 배너 광고 숨김 */
-export async function hideBannerAd(): Promise<void> {
-  if (isMockMode(BANNER_AD_ID)) return;
-  try {
-    await window.AppsInToss?.hideBannerAd?.(BANNER_AD_ID);
-  } catch {
-    // 무시
-  }
-}
+export async function showBannerAd(): Promise<void> {}
+export async function hideBannerAd(): Promise<void> {}

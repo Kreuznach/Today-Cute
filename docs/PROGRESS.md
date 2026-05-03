@@ -1,119 +1,89 @@
-﻿# 媛쒕컻 吏꾪뻾 ?곹솴
+# 최근 진행 상태
 
-## ?꾩옱 ?곹깭: MVP v0.2.0 ?꾨즺 ??
+## 현재 상태: MVP v0.2.0 완료 후
 
-**?묒뾽 ?꾨즺??*: 2026-05-03
-
----
-
-## ?꾨즺???묒뾽
-
-### ?꾨줈?앺듃 ?ㅼ젙
-- [x] Vite 5 + React 18 + TypeScript 5 ?꾨줈?앺듃 援ъ꽦
-- [x] Tailwind CSS 3 ?ㅼ젙 (紐⑤컮??理쒖쟻??而ㅼ뒪? ?뚮쭏)
-- [x] 紐⑤컮??Safe Area ???(`env(safe-area-inset-*)`)
-- [x] 鍮뚮뱶 ?깃났 ?뺤씤
-
-### ???諛??곗씠??
-- [x] `CuteCardResult`, `CuteCharacter` ???듭떖 ????뺤쓽
-- [x] 12醫?罹먮┃??횞 3??= 36??移대뱶 ?곗씠???묒꽦
-- [x] 罹먮┃?곕퀎 ?대え吏, 洹몃씪?붿뼵???됱긽 吏??
-
-### ?좏떥由ы떚
-- [x] KST 湲곗? ?좎쭨 怨꾩궛 (`getTodayKst`, `isToday`)
-- [x] ?쒕뜡 移대뱶 戮묎린 (`drawRandomCard`, `drawRandomCardExcept`)
-- [x] localStorage CRUD (`cuteDrawStorage.ts`)
-  - ?ㅻ뒛 湲곕줉 ???蹂듭썝/?뺤젙
-  - ?덉뒪?좊━ ???(理쒕? 30??
-  - 而щ젆???낅뜲?댄듃
-
-### 愿묎퀬 ?덉씠??
-- [x] 愿묎퀬 異붿긽??(`src/lib/ads.ts`)
-- [x] 媛쒕컻 ?섍꼍: mock 紐⑤뱶 (1.5珥????깃났 ?쒕??덉씠??
-- [x] ?ㅼ젣 ?곕룞 以鍮? `AD_GROUP_ID` ?곸닔 + 二쇱꽍 媛?대뱶
-
-### ?듭떖 ??
-
-### ?듭떖 ??
-- [x] `useCuteDraw` - ?꾩껜 ???곹깭 愿由?
-  - ?섎（ 1??戮묎린 ?쒗븳
-  - ?щ퐨湲?1???쒗븳
-  - 愿묎퀬 ?ㅽ뙣 ??湲곗〈 移대뱶 ?좎?
-  - ?붾㈃ ?꾪솚 濡쒖쭅
-
-### 而댄룷?뚰듃
-- [x] `CuteCard` - ?ш린蹂?(sm/md/lg) 移대뱶 UI
-- [x] `DrawBox` - 戮묎린 ?좊땲硫붿씠??諛뺤뒪
-- [x] `CharacterCollection` - 12醫?而щ젆??洹몃━??
-- [x] `HistoryList` - 湲곕줉 紐⑸줉 + ?곸꽭 蹂닿린
-
-### ?붾㈃ (6媛?
-- [x] `HomeScreen` - ??(?ㅻ뒛 移대뱶 ?곹깭 ?쒖떆)
-- [x] `DrawScreen` - 移대뱶???좊땲硫붿씠??戮묎린
-- [x] `ResultScreen` - 寃곌낵 + ?щ퐨湲?紐⑤떖
-- [x] `FinalCardScreen` - 理쒖쥌 移대뱶 ?뺤씤
-- [x] `HistoryScreen` - 理쒓렐 7??湲곕줉
-- [x] `CollectionScreen` - 12醫?而щ젆??
-
-### 臾몄꽌
-- [x] `docs/01-overview.md` - ?꾨줈?앺듃 媛쒖슂
-- [x] `docs/02-mvp-spec.md` - MVP ?곸꽭 紐낆꽭
-- [x] `docs/03-card-dictionary.md` - 移대뱶 ?ъ쟾 (96醫낆쑝濡??낅뜲?댄듃)
-- [x] `docs/04-ad-flow.md` - 愿묎퀬 ?щ퐨湲??뚮줈??(硫??愿묎퀬 異붽?)
-- [x] `docs/05-apps-in-toss-checklist.md` - 寃??泥댄겕由ъ뒪??(.ait 鍮뚮뱶, ?대?吏 媛?대뱶 異붽?)
-- [x] `docs/06-future-supabase-schema.md` - Supabase ?뺤옣 ?ㅽ궎留?
-- [x] `README.md` ?낅뜲?댄듃
+**마지막 업데이트**: 2026-05-03
 
 ---
 
-## v0.2.0 異붽? ?묒뾽 (2026-05-03)
+## 완료된 작업
 
-### 愿묎퀬 硫??ID 吏??
-- [x] `src/lib/ads.ts` ?꾨㈃ ?ъ옉?? Apps in Toss v2 API + 硫??愿묎퀬
-  - ?숈쁺??蹂댁긽??`REWARD_AD_ID = 'ait.v2.live.be5532d27f574f4b'`
-  - 諛곕꼫 愿묎퀬 `BANNER_AD_ID = 'ait.v2.live.PENDING'` (諛쒓툒 ?湲?
-  - `loadAd(adId)`, `loadRewardAd()`, `showRewardAd()`, `showBannerAd()`, `hideBannerAd()`
-  - `window.AppsInToss` v2 ?명꽣?섏씠??????좎뼵
-- [x] `useCuteDraw.ts`: `loadAd/showAd` ??`loadRewardAd/showRewardAd` 援먯껜
-- [x] `HomeScreen.tsx`: 諛곕꼫 愿묎퀬 ?몄텧/?④? (`useEffect`) + 媛쒕컻 ?섍꼍 ?뚮젅?댁뒪???
+### 프로젝트 설정
+- [x] Vite 5 + React 18 + TypeScript 5 프로젝트 생성
+- [x] Tailwind CSS 3 설정 (커스텀 디자인 토큰 정의)
+- [x] 모바일 Safe Area 지원 (env(safe-area-inset-*))
+- [x] 기본 화면 동작 확인
 
-### 罹먮┃?걔룹뭅???뺤옣
-- [x] 湲곗〈 12醫?罹먮┃??媛?4踰덉㎏ 移대뱶(`seasonal`) 異붽?
-- [x] ?좉퇋 12醫?罹먮┃??異붽? (媛?4移대뱶): ?쒖닔???? ?좉린??臾몄뼱, ?⑹뵫??媛쒓뎄由? ?ъ숴??肄붿븣?? 轅덇씀??怨좊옒, ?꾩묠 ?? 吏?쒕줈??遺?됱씠, ?⑷컧???ъ옄, ?됱삩??肄붾겮由? 苑껊굹鍮? ?꾧린 ?ъ뒾, ?됰났???쇱?
-- [x] 珥?移대뱶: 36醫???96醫?(24 罹먮┃??횞 4移대뱶)
+### 타입 및 데이터
+- [x] CuteCardResult, CuteCharacter 타입 정의 및 재활용
+- [x] 12종 캐릭터 × 3개 = 36개 카드 데이터 작성
+- [x] 캐릭터별 색상 팔레트, 이모지 기본 지정
 
-### 鍮뚮뱶 .ait ?뺤떇
-- [x] `vite-plugin-zip-pack` ?ㅼ튂 諛?vite.config.ts ?ㅼ젙
-- [x] `npm run build` ??`today-cute-pick.ait` ?먮룞 ?앹꽦 (?꾨줈?앺듃 猷⑦듃)
-- [x] `build:ait` ?ㅽ겕由쏀듃 異붽? (?숈씪 ?숈옉, 紐낆떆??紐낆묶)
-- [x] ???댁긽 `dist/` zip ?섎룞 ?뺤텞 遺덊븘??
+### 유틸리티
+- [x] KST 기준 날짜 계산 (getTodayKst, isToday)
+- [x] 가중치 기반 랜덤 뽑기 (drawRandomCard, drawRandomCardExcept)
+- [x] localStorage CRUD (cuteDrawStorage.ts)
+  - 오늘 기록 저장/불러오기
+  - 히스토리 관리 (최대 30개)
+  - 재뽑기 상태 업데이트
+
+### 광고 연동 (v0.2.0 완료)
+- [x] 광고 추상화 레이어 (src/lib/ads.ts)
+- [x] GoogleAdMob API 연동 (@apps-in-toss/web-framework)
+  - loadAppsInTossAdMob: 사전 로드 (이벤트 기반 콜백)
+  - showAppsInTossAdMob: 노출 (userEarnedReward, dismissed, failedToShow 이벤트)
+- [x] AIT 환경 자동 감지 (isAitSupported())
+- [x] 개발 환경: 1.5초 딜레이 후 자동 성공 시뮬레이션
+- [x] 테스트 ID 자동 적용 (DEV 또는 VITE_AD_ENV=test)
+
+### 타입 정의
+
+### 훅
+- [x] useCuteDraw - 전체 앱 상태 관리
+  - 하루 1회 뽑기 제한
+  - 재뽑기 1회 제한
+  - 광고 실패 시 이전 카드 복귀
+  - 화면 전환 흐름
+
+### 컴포넌트
+- [x] CuteCard - 사이즈별(sm/md/lg) 카드 UI
+- [x] DrawBox - 뽑기 애니메이션 템스
+- [x] CharacterCollection - 12종 캐릭터 목록
+- [x] HistoryList - 기록 리스트 + 날짜 포맷
+
+### 화면 (6개)
+- [x] HomeScreen - 메인 진입 화면
+- [x] DrawScreen - 뽑기 진행 화면
+- [x] ResultScreen - 결과 확인 화면
+- [x] FinalCardScreen - 최종 카드 확정 화면
+- [x] CollectionScreen - 캐릭터 도감 화면
+- [x] HistoryScreen - 뽑기 기록 화면
+
+### AIT 빌드 시스템 (v0.2.0 완료)
+- [x] @apps-in-toss/web-framework v2.4.7 설치
+- [x] granite.config.ts 설정 (appName, brand, navigationBar 등)
+- [x] .granite/app.json 설정 (today-cute-pick)
+- [x] npm run build:ait → today-cute-pick.ait 생성 성공
+- [x] vite-plugin-zip-pack 제거 (불필요)
 
 ---
 
-## 鍮뚮뱶 寃곌낵 (v0.2.0)
+## v0.2.0 수정 이력
 
-```
-dist/index.html                   0.80 kB ??gzip:  0.46 kB
-dist/assets/index-*.css          18.70 kB ??gzip:  4.09 kB
-dist/assets/index-*.js           51.73 kB ??gzip: 18.50 kB
-dist/assets/react-*.js          140.87 kB ??gzip: 45.26 kB
-today-cute-pick.ait               68.57 kB
-??built in 2.92s
-```
+### 한글 깨짐 수정 (granite.config.ts)
+- **원인**: 배치 리네임 스크립트(Set-Content)가 UTF-8 BOM을 삽입하여 한글이 깨짐
+- **해결**: [System.IO.File]::WriteAllText + UTF8NoBom 인코딩으로 재작성
+
+### 광고 API 수정 (src/lib/ads.ts)
+- **원인**: window.AppsInToss.loadAd/showAd 인터페이스는 존재하지 않음
+- **해결**: GoogleAdMob.loadAppsInTossAdMob / showAppsInTossAdMob 이벤트 기반 API로 전면 교체
+- **타입 수정**: ShowAdMobOptions.adUnitId → adGroupId (실제 타입 정의 기준)
 
 ---
 
-## ?ㅼ쓬 ?묒뾽 (v0.3.0 ?덉젙)
+## 다음 목표 (v0.3.x)
 
-- [ ] ?ㅼ젣 ?대?吏 ?먯뀑 異붽? (`public/assets/characters/`, 24醫?
-- [ ] Apps in Toss 肄섏넄 諛곕꼫 愿묎퀬 洹몃９ ID ?깅줉 (`BANNER_AD_ID` ?낅뜲?댄듃)
-- [ ] Apps in Toss ?대? ?뚯뒪??留곹겕濡?寃??
-- [ ] 踰덈뱾 ?낅줈??諛?寃???쒖텧
-
-## ?κ린 濡쒕뱶留?
-
-- [ ] 罹먮┃??24醫??뺤옣 (怨꾩젅/?좎뵪)
-- [ ] Supabase ?곕룞 (docs/06-future-supabase-schema.md 李몄“)
-- [ ] Apps in Toss 濡쒓렇???곕룞
-- [ ] ?덉뒪?좊━ ?쒕쾭 ?숆린??
-
+- [ ] TossAd 배너 광고 연동 (DOM API)
+- [ ] 온보딩 화면 추가
+- [ ] 푸시 알림 (하루 1회 뽑기 리마인더)
+- [ ] 앱스인토스 심사 제출
