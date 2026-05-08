@@ -16,6 +16,7 @@ function App() {
     isDrawing,
     isAdLoading,
     showRedrawModal,
+    isRedrawAnimation,
     goTo,
     startDraw,
     confirmDraw,
@@ -46,6 +47,7 @@ function App() {
       {screen === 'draw' && (
         <DrawScreen
           isDrawing={isDrawing}
+          isRedraw={isRedrawAnimation}
           onDraw={confirmDraw}
           goTo={goTo}
         />

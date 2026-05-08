@@ -2,7 +2,7 @@
 
 ## 현재 상태: MVP v0.2.0 완료 후
 
-**마지막 업데이트**: 2026-05-03
+**마지막 업데이트**: 2026-05-08
 
 ---
 
@@ -65,6 +65,35 @@
 - [x] .granite/app.json 설정 (today-cute-pick)
 - [x] npm run build:ait → today-cute-pick.ait 생성 성공
 - [x] vite-plugin-zip-pack 제거 (불필요)
+
+---
+
+## v0.2.1 수정 이력 (2026-05-08)
+
+### 광고 후 상자 애니메이션 복원
+
+- **원인**: 광고 시청 성공 후 바로 `final` 화면으로 이동하여 상자 여는 애니메이션 미표시
+- **해결**:
+  - `confirmRedrawModal`에서 새 카드 뽑기 후 `draw` 화면으로 이동 (1.2초 애니메이션)
+  - 1.2초 후 새 카드와 함께 `result` 화면으로 전환
+  - `DrawScreen`에 `isRedraw?: boolean` prop 추가 — 재뽑기 시 안내 텍스트/박스 변경
+  - `useCuteDraw`에 `isRedrawAnimation` 상태 추가
+  - `finalizeCard`에 중복 확정 가드 추가 (`todayRecord.finalized`이면 화면만 전환)
+  - `ResultScreen` 확정 버튼 텍스트: 재뽑기 완료 후 "최종 카드 확인하기"로 변경
+
+### AIT 빌드 복구 (v0.2.1)
+
+- **환경 이슈**: Node.js v24.14.0 + Windows 경로 길이 제한으로 npm 설치 중 여러 파일 누락
+- **해결 방법**:
+  - `ts-interface-checker/dist/util.js` → `npm install --force ts-interface-checker`
+  - `@clack/prompts/dist/index.mjs` → `npm install --force @clack/prompts`
+  - `cosmiconfig-typescript-loader/dist/esm/typescript-compile-error.mjs` → 수동 ESM 심 생성
+  - `@apps-in-toss/ait-format/dist/index.mjs` → 수동 ESM 심 생성 (전체 exports 포함)
+  - `pathe/dist/utils.mjs`, `@shopify/semaphore/index.mjs` → ESM 심 생성
+  - `recast/node_modules/source-map/lib/*` → `@granite-js/mpack`에서 복사
+  - `source-map/lib/*` → C:\tmp\bb에 단축 경로로 설치 후 복사
+  - `bluebird/js/release/*` → C:\tmp\bb에 단축 경로로 설치 후 복사
+- **결과**: `today-cute-pick.ait` 3.59MB 빌드 성공 (2026-05-08)
 
 ---
 

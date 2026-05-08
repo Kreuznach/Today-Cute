@@ -60,7 +60,7 @@ export function ResultScreen({
         {/* 버튼 영역 */}
         <div className="px-5 pt-4 pb-6 flex flex-col gap-3">
           <button onClick={onFinalize} className="btn-primary">
-            오늘 카드 확정하기
+            {todayRecord?.finalized ? '최종 카드 확인하기' : '오늘 카드 확정하기'}
           </button>
           {canRedraw && (
             <button

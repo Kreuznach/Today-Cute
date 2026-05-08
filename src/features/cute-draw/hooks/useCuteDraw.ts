@@ -26,6 +26,7 @@ export interface UseCuteDrawReturn {
   isDrawing: boolean;
   isAdLoading: boolean;
   showRedrawModal: boolean;
+  isRedrawAnimation: boolean;
 
   goTo: (screen: Screen) => void;
   startDraw: () => void;
@@ -45,6 +46,7 @@ export function useCuteDraw(): UseCuteDrawReturn {
   const [isDrawing, setIsDrawing] = useState(false);
   const [isAdLoading, setIsAdLoading] = useState(false);
   const [showRedrawModal, setShowRedrawModal] = useState(false);
+  const [isRedrawAnimation, setIsRedrawAnimation] = useState(false);
 
   // 초기 상태 로드
   useEffect(() => {
@@ -89,6 +91,11 @@ export function useCuteDraw(): UseCuteDrawReturn {
   // 카드 확정 (재뽑기 없이 현재 카드로 확정)
   const finalizeCard = useCallback(() => {
     if (!todayRecord) return;
+    if (todayRecord.finalized) {
+      // 재뽑기 후 markRedrawUsed에서 이미 확정됨 → 화면만 전환
+      setScreen('final');
+      return;
+    }
     const updated = finalizeTodayRecord(todayRecord, todayRecord.finalCard ?? pendingCard ?? todayRecord.firstCard);
     setTodayRecord(updated);
     setHistory(getHistory());
@@ -116,10 +123,20 @@ export function useCuteDraw(): UseCuteDrawReturn {
       const newCard = drawRandomCardExcept(currentCardId);
       const updated = markRedrawUsed(todayRecord, newCard);
       setTodayRecord(updated);
-      setPendingCard(newCard);
-      setHistory(getHistory());
-      setCollection(getCollection());
-      setScreen('final');
+
+      // 뽑기 화면으로 이동해 상자 애니메이션 재생
+      setIsDrawing(true);
+      setIsRedrawAnimation(true);
+      setScreen('draw');
+
+      setTimeout(() => {
+        setPendingCard(newCard);
+        setHistory(getHistory());
+        setCollection(getCollection());
+        setIsDrawing(false);
+        setIsRedrawAnimation(false);
+        setScreen('result');
+      }, 1200);
     }
     // 실패/취소 시 기존 카드 유지, 화면 유지
   }, [todayRecord, pendingCard]);
@@ -138,6 +155,7 @@ export function useCuteDraw(): UseCuteDrawReturn {
     isDrawing,
     isAdLoading,
     showRedrawModal,
+    isRedrawAnimation,
     goTo,
     startDraw,
     confirmDraw,
