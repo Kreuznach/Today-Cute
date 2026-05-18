@@ -2,7 +2,7 @@
 
 ## 현재 상태: MVP v0.2.0 완료 후
 
-**마지막 업데이트**: 2026-05-18 (v0.2.5)
+**마지막 업데이트**: 2026-05-18 (v0.2.6)
 
 ---
 
@@ -65,6 +65,15 @@
 - [x] .granite/app.json 설정 (today-cute-pick)
 - [x] npm run build:ait → today-cute-pick.ait 생성 성공
 - [x] vite-plugin-zip-pack 제거 (불필요)
+
+---
+
+## v0.2.6 수정 이력 (2026-05-18)
+
+### 전체 화면 - 좌우 패딩 통일 (HomeScreen 기준 px-4)
+- **문제**: CollectionScreen·HistoryScreen이 v0.2.5에서 `px-2`로 설정되어 다른 화면과 불일치
+- **수정**: CollectionScreen·HistoryScreen 헤더·컨텐츠 영역 `px-2` → `px-4`로 복원
+- **결과**: 전체 6개 화면 좌우 패딩 `px-4` (16px) 통일, 컨텐츠 너비 343px 기준 일치
 
 ---
 
