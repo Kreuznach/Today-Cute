@@ -22,7 +22,7 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="px-5 pt-5 pb-2">
+      <div className="px-4 pt-4 pb-2">
         <button onClick={() => goTo('home')} className="btn-ghost -ml-2 mb-2">
           ← 홈으로
         </button>
@@ -37,14 +37,14 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
         <p className="text-xs text-cute-subtext mt-0.5">{formatDateKr(todayRecord.dateKst)}</p>
       </div>
 
-      {/* 카드 */}
-      <div className="flex-1 px-5 overflow-y-auto py-4">
+      {/* 메인 영역 */}
+      <div className="flex-1 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
         <div className="animate-fade-in">
           <CuteCard card={finalCard} size="lg" />
         </div>
 
         {/* 내일 안내 */}
-        <div className="mt-4 bg-cute-soft rounded-2xl p-4">
+        <div className="bg-cute-soft rounded-2xl p-3">
           <p className="text-sm text-cute-subtext text-center leading-relaxed">
             🌙 내일 새로운 카드를 뽑을 수 있어요
           </p>
@@ -52,7 +52,7 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
       </div>
 
       {/* 하단 버튼 */}
-      <div className="px-5 pt-4 pb-6 flex flex-col gap-3">
+      <div className="px-4 pt-3 pb-5 flex flex-col gap-2">
         <button onClick={() => goTo('history')} className="btn-secondary">
           최근 7일 기록 보기
         </button>

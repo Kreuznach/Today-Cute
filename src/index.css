@@ -54,7 +54,7 @@
   }
 
   .screen {
-    @apply flex flex-col min-h-screen bg-cute-bg;
+    @apply flex flex-col h-full bg-cute-bg;
     padding-top: env(safe-area-inset-top, 0px);
     padding-bottom: env(safe-area-inset-bottom, 0px);
     padding-left: env(safe-area-inset-left, 0px);

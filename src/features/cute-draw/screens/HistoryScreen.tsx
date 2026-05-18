@@ -10,8 +10,8 @@ export function HistoryScreen({ history, goTo }: HistoryScreenProps) {
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="px-5 pt-5 pb-4">
-        <button onClick={() => goTo('home')} className="btn-ghost -ml-2 mb-3">
+      <div className="px-2 pt-3 pb-2">
+        <button onClick={() => goTo('home')} className="btn-ghost -ml-2 mb-2">
           ← 홈으로
         </button>
         <h2 className="text-lg font-bold text-cute-text">최근 기록</h2>
@@ -19,7 +19,7 @@ export function HistoryScreen({ history, goTo }: HistoryScreenProps) {
       </div>
 
       {/* 목록 */}
-      <div className="flex-1 px-5 overflow-y-auto pb-6">
+      <div className="flex-1 px-2 overflow-y-auto pt-2 pb-4">
         <HistoryList history={history} />
       </div>
     </div>

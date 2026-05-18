@@ -41,24 +41,21 @@ export function ResultScreen({
     <>
       <div className="screen flex flex-col">
         {/* 헤더 */}
-        <div className="flex items-center px-5 pt-5 pb-3">
+        <div className="flex items-center px-4 pt-4 pb-3">
           <button onClick={() => goTo('home')} className="btn-ghost -ml-2">
             ← 홈으로
           </button>
         </div>
-        <div className="px-5 pb-2">
+        {/* 메인 영역 */}
+        <div className="flex-1 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
           <p className="text-xs text-cute-subtext">오늘의 응원 카드가 도착했어요!</p>
-        </div>
-
-        {/* 카드 */}
-        <div className="flex-1 px-5 overflow-y-auto">
           <div className="animate-slide-up">
             <CuteCard card={card} size="lg" animate />
           </div>
         </div>
 
         {/* 버튼 영역 */}
-        <div className="px-5 pt-4 pb-6 flex flex-col gap-3">
+        <div className="px-4 pt-3 pb-5 flex flex-col gap-2">
           <button onClick={onFinalize} className="btn-primary">
             {todayRecord?.finalized ? '최종 카드 확인하기' : '오늘 카드 확정하기'}
           </button>

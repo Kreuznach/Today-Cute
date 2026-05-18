@@ -28,13 +28,13 @@ export function CuteCard({ card, size = 'md', animate = false }: CuteCardProps) 
   const sizeClasses = {
     sm: 'p-4 rounded-2xl',
     md: 'p-5 rounded-3xl',
-    lg: 'p-6 rounded-3xl',
+    lg: 'p-7 rounded-3xl',
   };
 
   const emojiSizes = {
     sm: 'text-4xl',
     md: 'text-6xl',
-    lg: 'text-7xl',
+    lg: 'text-8xl',
   };
 
   return (
@@ -61,20 +61,20 @@ export function CuteCard({ card, size = 'md', animate = false }: CuteCardProps) 
       )}
 
       {/* 이모지 */}
-      <div className={`${emojiSizes[size]} mb-3 leading-none`}>{emoji}</div>
+      <div className={`${emojiSizes[size]} ${size === 'lg' ? 'mb-4' : 'mb-3'} leading-none`}>{emoji}</div>
 
       {/* 캐릭터명 */}
       <p className="text-sm font-medium text-black/50 mb-1">{card.characterName}</p>
 
       {/* 무드 타이틀 */}
-      <h3 className={`font-bold text-black/80 mb-3 leading-snug ${size === 'lg' ? 'text-xl' : 'text-base'}`}>
+      <h3 className={`font-bold text-black/80 mb-3 leading-snug ${size === 'lg' ? 'text-2xl' : 'text-base'}`}>
         {card.moodTitle}
       </h3>
 
       {size !== 'sm' && (
         <>
           {/* 응원 메시지 */}
-          <p className="text-sm text-black/60 leading-relaxed mb-4">{card.message}</p>
+          <p className={`text-black/60 leading-relaxed mb-4 ${size === 'lg' ? 'text-base' : 'text-sm'}`}>{card.message}</p>
 
           {/* 오늘의 포인트 */}
           <div className="bg-white/40 rounded-xl p-3 mb-2">

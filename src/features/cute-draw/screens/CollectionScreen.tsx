@@ -14,8 +14,8 @@ export function CollectionScreen({ collection, goTo }: CollectionScreenProps) {
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="px-5 pt-5 pb-4">
-        <button onClick={() => goTo('home')} className="btn-ghost -ml-2 mb-3">
+      <div className="px-2 pt-3 pb-2">
+        <button onClick={() => goTo('home')} className="btn-ghost -ml-2 mb-2">
           ← 홈으로
         </button>
         <div className="flex items-end justify-between">
@@ -30,7 +30,7 @@ export function CollectionScreen({ collection, goTo }: CollectionScreenProps) {
         </div>
 
         {/* 프로그레스 바 */}
-        <div className="mt-3 h-2 bg-cute-soft rounded-full overflow-hidden">
+        <div className="mt-2 h-2 bg-cute-soft rounded-full overflow-hidden">
           <div
             className="h-full bg-cute-primary rounded-full transition-all duration-500"
             style={{ width: `${total > 0 ? (obtained / total) * 100 : 0}%` }}
@@ -39,7 +39,7 @@ export function CollectionScreen({ collection, goTo }: CollectionScreenProps) {
       </div>
 
       {/* 컬렉션 그리드 */}
-      <div className="flex-1 px-5 overflow-y-auto pb-6">
+      <div className="flex-1 px-2 overflow-y-auto pt-2 pb-3">
         <CharacterCollection collection={collection} />
       </div>
     </div>

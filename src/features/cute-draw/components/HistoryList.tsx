@@ -44,18 +44,18 @@ export function HistoryList({ history }: HistoryListProps) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-2">
       {history.slice(0, 7).map((item) => {
         const character = characters.find((c) => c.characterKey === item.card.characterKey);
         return (
           <button
             key={item.dateKst}
             onClick={() => setSelectedItem(item)}
-            className="flex items-center gap-3 bg-white rounded-2xl p-3.5 border border-cute-border active:bg-cute-soft text-left w-full"
+            className="flex items-center gap-4 bg-white rounded-2xl p-5 border border-cute-border active:bg-cute-soft text-left w-full"
           >
             {/* 이모지 */}
             <div
-              className="w-12 h-12 rounded-xl flex items-center justify-center text-2xl flex-shrink-0"
+              className="w-20 h-20 rounded-2xl flex items-center justify-center text-4xl flex-shrink-0"
               style={{
                 background: `linear-gradient(135deg, ${character?.colorFrom ?? '#E8EAF6'}, ${character?.colorTo ?? '#C5CAE9'})`,
               }}
@@ -65,8 +65,8 @@ export function HistoryList({ history }: HistoryListProps) {
             {/* 정보 */}
             <div className="flex-1 min-w-0">
               <p className="text-xs text-cute-subtext mb-0.5">{formatDateKr(item.dateKst)}</p>
-              <p className="text-sm font-medium text-cute-text truncate">{item.card.characterName}</p>
-              <p className="text-xs text-cute-subtext truncate">{item.card.moodTitle}</p>
+              <p className="text-lg font-semibold text-cute-text truncate">{item.card.characterName}</p>
+              <p className="text-sm text-cute-subtext truncate">{item.card.moodTitle}</p>
             </div>
             <span className="text-cute-subtext text-xs flex-shrink-0">›</span>
           </button>

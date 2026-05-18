@@ -2,7 +2,7 @@
 
 ## 현재 상태: MVP v0.2.0 완료 후
 
-**마지막 업데이트**: 2026-05-08
+**마지막 업데이트**: 2026-05-18 (v0.2.5)
 
 ---
 
@@ -65,6 +65,71 @@
 - [x] .granite/app.json 설정 (today-cute-pick)
 - [x] npm run build:ait → today-cute-pick.ait 생성 성공
 - [x] vite-plugin-zip-pack 제거 (불필요)
+
+---
+
+## v0.2.5 수정 이력 (2026-05-18)
+
+### CollectionScreen - 3열 그리드 복원 + 패딩 최소화
+- **화면 패딩**: 헤더 + 컨텐츠 영역 `px-4` → `px-2` (좌우 여백 최소화)
+- **그리드**: `grid-cols-2 gap-3` → `grid-cols-3 gap-2` (3열 복원)
+- **아이템**: 이모지 영역 `w-20 h-20 text-4xl` → `w-14 h-14 text-2xl`, 내부 패딩 `p-4` → `p-3`, 이름 `text-sm` → `text-xs`
+
+### HistoryScreen - 패딩 최소화 + 아이템 대형화
+- **화면 패딩**: 헤더 + 컨텐츠 영역 `px-4` → `px-2` (좌우 여백 최소화)
+- **리스트 아이템**: 패딩 `p-4` → `p-5`, 간격 `gap-3` → `gap-4`, 이모지 `w-16 h-16 text-3xl` → `w-20 h-20 text-4xl rounded-2xl`
+- **텍스트**: 캐릭터명 `text-base font-medium` → `text-lg font-semibold`, 무드타이틀 `text-xs` → `text-sm`
+
+---
+
+## v0.2.4 수정 이력 (2026-05-18)
+
+### 전체 화면 - 메인 콘텐츠 영역 레이아웃 패턴 통일
+- **변경**: HomeScreen의 `flex-1 px-4 flex flex-col gap-3 pt-3` 패턴을 다른 화면에 일관 적용
+- **DrawScreen**: 분리된 설명 div + flex-1 박스 + 안내 div → 단일 `flex-1 px-4 flex flex-col pt-3` 컨테이너로 통합
+- **ResultScreen**: 서브타이틀 div 분리 제거 → `flex-1 px-4 flex flex-col gap-3 pt-3 overflow-y-auto`에 자막 + 카드 통합
+- **FinalCardScreen**: `overflow-y-auto py-3` → `flex flex-col gap-3 pt-3 overflow-y-auto pb-3`, `mt-3` 제거 (gap이 대체)
+- **HistoryScreen / CollectionScreen**: `pt-3` 추가로 헤더 하단 여백 통일
+
+---
+
+## v0.2.3 수정 이력 (2026-05-18)
+
+### 홈 화면 - 마지막 업데이트 표시 변경
+- **변경**: 사용자 뽑기 히스토리 날짜 → 미니앱 자체 업데이트 날짜 및 내역으로 교체
+- **구현**: `HomeScreen` 내 정적 상수 `APP_UPDATE` 정의 (`date`, `description`)
+- **정리**: `history` prop 불필요로 `HomeScreenProps`에서 제거, `App.tsx` 전달 제거
+
+### 전체 화면 - 좌우 여백 최소화
+- **변경**: 모든 화면의 `px-5`(20px) → `px-4`(16px), 과도한 수직 여백 축소
+- **대상 파일**: HomeScreen, DrawScreen, ResultScreen, FinalCardScreen, HistoryScreen, CollectionScreen
+- **컴포넌트**: HistoryList 아이템 `p-3.5` → `p-3`, `gap-3` → `gap-2`
+- **컴포넌트**: CharacterCollection 그리드 `gap-3` → `gap-2`, 아이템 `p-3` → `p-2.5`, 이모지 아이콘 `w-14 h-14` → `w-12 h-12`
+- **기타**: 카드 내 margin, gap도 소폭 축소하여 전반적 압축감 개선
+
+---
+
+## v0.2.2 수정 이력 (2026-05-18)
+
+### 홈 화면 - 마지막 기록 표시
+- **내용**: 홈 화면 하단 메뉴 아래에 "마지막 기록" 날짜 표시 추가
+- **구현**:
+  - `HomeScreenProps`에 `history: CuteHistoryItem[]` prop 추가
+  - 오늘 카드가 확정된 경우 `todayRecord.dateKst`, 아니면 `history[0].dateKst` 사용
+  - 기록 없을 시 "아직 기록이 없어요" 표시
+  - `App.tsx`에서 `history` prop 전달
+
+### 최근 기록 화면 - 모바일 풀스크린 수정
+- **원인**: `.screen` CSS 클래스가 `min-h-screen`으로 설정되어 flex-1 + overflow-y-auto가 제대로 동작하지 않음
+- **해결**: `.screen` 클래스를 `min-h-screen` → `h-full`로 변경
+  - 부모 컨테이너(`max-w-md h-full`)와 높이를 맞춰 viewport 전체를 채우도록 수정
+  - `flex-1 overflow-y-auto` 스크롤 영역이 정확히 남은 공간을 채움
+  - 모든 화면(홈, 뽑기, 결과, 최종, 기록, 컬렉션)에 동일 적용
+
+### 빌드 환경 수정
+- **원인**: `node_modules/csstype/index.d.ts` 파일이 다운로드 중 손상(3072줄에서 미완성 상태로 잘림)
+- **해결**: 손상된 csstype 삭제 후 `npm install`로 재설치 (22569줄 정상 복구)
+- **결과**: `tsc --noEmit && vite build` 전체 성공, `today-cute-pick.ait` 클린 빌드
 
 ---
 

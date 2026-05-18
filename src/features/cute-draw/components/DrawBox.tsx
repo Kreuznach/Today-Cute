@@ -10,7 +10,7 @@ export function DrawBox({ isDrawing, onDraw }: DrawBoxProps) {
       <div className="relative">
         <div
           className={`
-            w-48 h-64 rounded-3xl flex items-center justify-center
+            w-64 h-80 rounded-3xl flex items-center justify-center
             bg-gradient-to-br from-cute-primary to-blue-400
             shadow-xl cursor-pointer select-none
             transition-all duration-200
@@ -24,7 +24,7 @@ export function DrawBox({ isDrawing, onDraw }: DrawBoxProps) {
             <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-white/10 translate-x-6 translate-y-6" />
           </div>
           <div className="relative flex flex-col items-center gap-2">
-            <span className="text-5xl">{isDrawing ? '✨' : '🎁'}</span>
+            <span className="text-6xl">{isDrawing ? '✨' : '🎁'}</span>
             <span className="text-white font-bold text-sm tracking-wide">
               {isDrawing ? '뽑는 중...' : '탭해서 뽑기'}
             </span>

@@ -7,7 +7,7 @@ interface CharacterCollectionProps {
 
 export function CharacterCollection({ collection }: CharacterCollectionProps) {
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-2">
       {characters.map((character) => {
         const obtained = collection.characterKeys.includes(character.characterKey);
         return (
@@ -25,7 +25,7 @@ export function CharacterCollection({ collection }: CharacterCollectionProps) {
             {/* 이모지 */}
             <div
               className={`
-                w-14 h-14 rounded-2xl flex items-center justify-center text-3xl
+                w-14 h-14 rounded-xl flex items-center justify-center text-2xl
                 ${obtained ? '' : 'grayscale blur-[1px]'}
               `}
               style={{

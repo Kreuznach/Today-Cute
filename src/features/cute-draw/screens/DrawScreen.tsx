@@ -12,7 +12,7 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="flex items-center px-5 pt-5 pb-3">
+      <div className="flex items-center px-4 pt-4 pb-3">
         <button
           onClick={() => goTo('home')}
           className="btn-ghost -ml-2 mr-2"
@@ -25,31 +25,30 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
         </h2>
       </div>
 
-      {/* 설명 */}
-      <div className="px-5 pb-6">
-        <p className="text-sm text-cute-subtext">
+      {/* 메인 영역 */}
+      <div className="flex-1 px-4 flex flex-col pt-3">
+        {/* 설명 */}
+        <p className="text-sm text-cute-subtext pb-3">
           {isRedraw
             ? '새로운 카드를 뽑는 중이에요'
             : '카드팩을 탭해서 오늘의 응원 카드를 뽑아보세요'}
         </p>
-      </div>
 
-      {/* 뽑기 박스 */}
-      <div className="flex-1 flex flex-col items-center justify-center px-5">
-        <DrawBox isDrawing={isDrawing} onDraw={onDraw} />
-      </div>
+        {/* 뽑기 박스 */}
+        <div className="flex-1 flex flex-col items-center justify-center">
+          <DrawBox isDrawing={isDrawing} onDraw={onDraw} />
+        </div>
 
-      {/* 안내 - 재뽑기 중에는 숨김 */}
-      {!isRedraw && (
-        <div className="px-5 pb-8">
-          <div className="bg-cute-soft rounded-2xl p-4">
+        {/* 안내 - 재뽑기 중에는 숨김 */}
+        {!isRedraw && (
+          <div className="bg-cute-soft rounded-2xl p-3 mb-6">
             <p className="text-xs text-cute-subtext text-center leading-relaxed">
               오늘 하루 한 번 카드를 뽑을 수 있어요.<br />
               결과 확인 후 광고를 보면 한 번 더 뽑을 수 있어요.
             </p>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

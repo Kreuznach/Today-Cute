@@ -4,6 +4,12 @@ import { formatDateKr } from '../utils/date';
 import { showBannerAd, hideBannerAd } from '../../../lib/ads';
 import type { CuteTodayRecord, Screen } from '../types';
 
+// 미니앱 마지막 업데이트 정보
+const APP_UPDATE = {
+  date: '2026.05.18',
+  description: 'UI 레이아웃 개선 · 화면 풀스크린 수정',
+} as const;
+
 interface HomeScreenProps {
   todayRecord: CuteTodayRecord | null;
   goTo: (screen: Screen) => void;
@@ -25,30 +31,30 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="px-5 pt-6 pb-2">
+      <div className="px-4 pt-5 pb-2">
         <h1 className="text-xl font-bold text-cute-text">오늘의 귀여운 뽑기</h1>
         <p className="text-sm text-cute-subtext mt-0.5">하루 한 번, 오늘의 응원 카드를 뽑아보세요</p>
       </div>
 
       {/* 메인 영역 */}
-      <div className="flex-1 px-5 flex flex-col gap-4 pt-4">
+      <div className="flex-1 px-4 flex flex-col gap-3 pt-3">
         {/* 오늘 카드 상태 카드 */}
         <div
-          className="rounded-3xl p-5 overflow-hidden relative"
+          className="rounded-2xl p-4 overflow-hidden relative"
           style={character
             ? { background: `linear-gradient(135deg, ${character.colorFrom}, ${character.colorTo})` }
             : { background: 'linear-gradient(135deg, #3182F6, #60A5FA)' }
           }
         >
           {/* 배경 장식 */}
-          <div className="absolute top-0 right-0 w-32 h-32 rounded-full bg-white/10 translate-x-8 -translate-y-8" />
-          <div className="absolute bottom-0 left-0 w-20 h-20 rounded-full bg-white/10 -translate-x-6 translate-y-6" />
+          <div className="absolute top-0 right-0 w-28 h-28 rounded-full bg-white/10 translate-x-8 -translate-y-8" />
+          <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full bg-white/10 -translate-x-5 translate-y-5" />
 
           <div className="relative">
             {finalCard && character ? (
               <>
-                <div className="flex items-start gap-3 mb-3">
-                  <span className="text-4xl">{character.emoji}</span>
+                <div className="flex items-start gap-3 mb-2">
+                  <span className="text-3xl">{character.emoji}</span>
                   <div>
                     <p className="text-white/70 text-xs mb-0.5">{formatDateKr(todayRecord!.dateKst)} 오늘의 카드</p>
                     <p className="text-white font-bold text-base">{finalCard.characterName}</p>
@@ -90,10 +96,10 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
         )}
 
         {/* 하단 메뉴 */}
-        <div className="grid grid-cols-2 gap-3">
+        <div className="grid grid-cols-2 gap-2">
           <button
             onClick={() => goTo('history')}
-            className="flex flex-col items-start gap-2 bg-white rounded-2xl p-4 border border-cute-border active:bg-cute-soft"
+            className="flex flex-col items-start gap-1.5 bg-white rounded-2xl p-3 border border-cute-border active:bg-cute-soft"
           >
             <span className="text-2xl">📅</span>
             <div>
@@ -103,7 +109,7 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
           </button>
           <button
             onClick={() => goTo('collection')}
-            className="flex flex-col items-start gap-2 bg-white rounded-2xl p-4 border border-cute-border active:bg-cute-soft"
+            className="flex flex-col items-start gap-1.5 bg-white rounded-2xl p-3 border border-cute-border active:bg-cute-soft"
           >
             <span className="text-2xl">🗂️</span>
             <div>
@@ -112,11 +118,18 @@ export function HomeScreen({ todayRecord, goTo, onStartDraw }: HomeScreenProps) 
             </div>
           </button>
         </div>
+
+        {/* 앱 마지막 업데이트 */}
+        <div className="flex items-center justify-between px-0.5 pb-1">
+          <p className="text-xs text-cute-subtext/60">Last Update: <br /> 
+            {APP_UPDATE.date} · {APP_UPDATE.description}
+          </p>
+        </div>
       </div>
 
       {/* 하단 배너 광고 영역 (개발 환경: 플레이스홀더, 실제: AppsInToss SDK가 처리) */}
       {import.meta.env.DEV && (
-        <div className="px-5 pb-safe">
+        <div className="px-4 pb-safe">
           <div className="h-14 bg-cute-soft border border-dashed border-cute-border rounded-xl flex items-center justify-center">
             {/* <p className="text-xs text-cute-subtext">배너 광고 영역 (BANNER_AD_ID 발급 후 활성화)</p> */}
           </div>
