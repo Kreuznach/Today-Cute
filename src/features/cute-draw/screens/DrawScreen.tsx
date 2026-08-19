@@ -12,7 +12,7 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
-      <div className="flex items-center px-4 pt-4 pb-3">
+      <div className="flex items-center px-4 pt-4 pb-3 shrink-0">
         <button
           onClick={() => goTo('home')}
           className="btn-ghost -ml-2 mr-2"
@@ -26,16 +26,16 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
       </div>
 
       {/* 메인 영역 */}
-      <div className="flex-1 px-4 flex flex-col pt-3">
+      <div className="flex-1 min-h-0 px-4 flex flex-col pt-3">
         {/* 설명 */}
-        <p className="text-sm text-cute-subtext pb-3">
+        <p className="text-sm text-cute-subtext pb-3 shrink-0">
           {isRedraw
             ? '새로운 카드를 뽑는 중이에요'
             : '카드팩을 탭해서 오늘의 응원 카드를 뽑아보세요'}
         </p>
 
         {/* 뽑기 박스 */}
-        <div className="flex-1 flex flex-col items-center justify-center">
+        <div className="flex-1 min-h-0 flex flex-col items-center justify-center">
           <DrawBox isDrawing={isDrawing} onDraw={onDraw} />
         </div>
 

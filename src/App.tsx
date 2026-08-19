@@ -40,6 +40,8 @@ function App() {
       {screen === 'home' && (
         <HomeScreen
           todayRecord={todayRecord}
+          history={history}
+          collection={collection}
           goTo={goTo}
           onStartDraw={handleStartDraw}
         />

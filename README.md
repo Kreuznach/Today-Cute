@@ -76,3 +76,4 @@ const AD_GROUP_ID = 'YOUR_AD_GROUP_ID_HERE'; // → 발급받은 ID 입력
 | [docs/04-ad-flow.md](docs/04-ad-flow.md) | 광고 재뽑기 플로우 |
 | [docs/05-apps-in-toss-checklist.md](docs/05-apps-in-toss-checklist.md) | 배포 전 체크리스트 |
 | [docs/06-future-supabase-schema.md](docs/06-future-supabase-schema.md) | Supabase 확장 스키마 |
+| [docs/07-layout-and-engagement.md](docs/07-layout-and-engagement.md) | 풀하이트 레이아웃 · 유입/흥미 의견 |

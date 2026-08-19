@@ -38,9 +38,9 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
       </div>
 
       {/* 메인 영역 */}
-      <div className="flex-1 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
-        <div className="animate-fade-in">
-          <CuteCard card={finalCard} size="lg" />
+      <div className="flex-1 min-h-0 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
+        <div className="animate-fade-in flex-1 min-h-0">
+          <CuteCard card={finalCard} size="lg" fill />
         </div>
 
         {/* 내일 안내 */}

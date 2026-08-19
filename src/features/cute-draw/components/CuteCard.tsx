@@ -5,6 +5,7 @@ interface CuteCardProps {
   card: CuteCardResult;
   size?: 'sm' | 'md' | 'lg';
   animate?: boolean;
+  fill?: boolean;
 }
 
 const rarityLabel: Record<CuteCardResult['rarity'], string> = {
@@ -19,7 +20,7 @@ const rarityBadgeColor: Record<CuteCardResult['rarity'], string> = {
   seasonal: 'bg-pink-50 text-pink-500',
 };
 
-export function CuteCard({ card, size = 'md', animate = false }: CuteCardProps) {
+export function CuteCard({ card, size = 'md', animate = false, fill = false }: CuteCardProps) {
   const character = characters.find((c) => c.characterKey === card.characterKey);
   const colorFrom = character?.colorFrom ?? '#E8EAF6';
   const colorTo = character?.colorTo ?? '#C5CAE9';
@@ -43,6 +44,7 @@ export function CuteCard({ card, size = 'md', animate = false }: CuteCardProps) 
         relative overflow-hidden
         ${sizeClasses[size]}
         ${animate ? 'animate-pop' : ''}
+        ${fill ? 'h-full min-h-0 flex flex-col' : ''}
         shadow-md
       `}
       style={{
@@ -74,7 +76,7 @@ export function CuteCard({ card, size = 'md', animate = false }: CuteCardProps) 
       {size !== 'sm' && (
         <>
           {/* 응원 메시지 */}
-          <p className={`text-black/60 leading-relaxed mb-4 ${size === 'lg' ? 'text-base' : 'text-sm'}`}>{card.message}</p>
+          <p className={`text-black/60 leading-relaxed mb-4 ${fill ? 'flex-1' : ''} ${size === 'lg' ? 'text-base' : 'text-sm'}`}>{card.message}</p>
 
           {/* 오늘의 포인트 */}
           <div className="bg-white/40 rounded-xl p-3 mb-2">

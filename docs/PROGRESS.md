@@ -2,7 +2,7 @@
 
 ## 현재 상태: MVP v0.2.0 완료 후
 
-**마지막 업데이트**: 2026-05-18 (v0.2.6)
+**마지막 업데이트**: 2026-08-19 (v0.2.7)
 
 ---
 
@@ -65,6 +65,25 @@
 - [x] .granite/app.json 설정 (today-cute-pick)
 - [x] npm run build:ait → today-cute-pick.ait 생성 성공
 - [x] vite-plugin-zip-pack 제거 (불필요)
+
+---
+
+## v0.2.7 수정 이력 (2026-08-19)
+
+### 화면이 세로로 비는 문제
+- **원인**: `.screen`은 `h-full`인데 홈 히어로·뽑기 박스·결과 카드가 고정 높이
+- **수정**:
+  - Home 히어로: `flex-1 min-h-[168px]`로 남는 세로 흡수
+  - DrawBox: `w-64 h-80` → 부모를 채우는 가변 박스 (`max-h-[360px]`)
+  - CuteCard `fill`: 결과/최종 화면에서 메시지 영역이 남은 높이를 사용
+  - flex 자식 `min-h-0`으로 WebView 높이 계산 안정화
+
+### 유입/흥미 (로컬 데이터만, 보상 없음)
+- 요일 인사 (`getTodayGreeting`)
+- 연속 방문 일수 (`getDrawStreak`) — “연속 N일째 카드를 받았어요”
+- 최근 7일 말랑 도장 (`WeekStampRow`)
+- 홈 컬렉션 미리보기 (미획득 `❓`)
+- 의견·백로그: [docs/07-layout-and-engagement.md](07-layout-and-engagement.md)
 
 ---
 
@@ -186,7 +205,8 @@
 
 ## 다음 목표 (v0.3.x)
 
+- [ ] 온보딩 1장 (하루 한 장 / 광고 재뽑기 / 점세 아님)
+- [ ] 카드 단위 도감 진행률 (characterKeys + cardIds)
 - [ ] TossAd 배너 광고 연동 (DOM API)
-- [ ] 온보딩 화면 추가
 - [ ] 푸시 알림 (하루 1회 뽑기 리마인더)
 - [ ] 앱스인토스 심사 제출

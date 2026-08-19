@@ -26,6 +26,21 @@ export function formatDateKr(dateKst: string): string {
   return `${month}월 ${day}일 (${weekdays[date.getDay()]})`;
 }
 
+/** 'YYYY-MM-DD'에 일수를 더하거나 뺀다 (KST 달력 기준) */
+export function addDaysKst(dateKst: string, delta: number): string {
+  const [year, month, day] = dateKst.split('-').map(Number);
+  const date = new Date(Date.UTC(year, month - 1, day));
+  date.setUTCDate(date.getUTCDate() + delta);
+  return date.toISOString().slice(0, 10);
+}
+
+/** 요일 한 글자 (일~토) */
+export function formatWeekdayKr(dateKst: string): string {
+  const [year, month, day] = dateKst.split('-').map(Number);
+  const date = new Date(year, month - 1, day);
+  return ['일', '월', '화', '수', '목', '금', '토'][date.getDay()];
+}
+
 /**
  * 최근 N일 날짜 목록 반환 (KST 기준, 오늘 포함)
  */

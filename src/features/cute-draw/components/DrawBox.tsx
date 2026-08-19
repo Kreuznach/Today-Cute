@@ -5,12 +5,12 @@ interface DrawBoxProps {
 
 export function DrawBox({ isDrawing, onDraw }: DrawBoxProps) {
   return (
-    <div className="flex flex-col items-center gap-8">
-      {/* 카드팩 박스 */}
-      <div className="relative">
+    <div className="flex flex-col items-center justify-center gap-6 w-full h-full min-h-0">
+      {/* 카드팩 박스 — 남은 세로 공간을 채우되 최대 크기만 제한 */}
+      <div className="relative w-full max-w-[280px] flex-1 min-h-[240px] max-h-[360px]">
         <div
           className={`
-            w-64 h-80 rounded-3xl flex items-center justify-center
+            w-full h-full rounded-3xl flex items-center justify-center
             bg-gradient-to-br from-cute-primary to-blue-400
             shadow-xl cursor-pointer select-none
             transition-all duration-200

@@ -47,10 +47,10 @@ export function ResultScreen({
           </button>
         </div>
         {/* 메인 영역 */}
-        <div className="flex-1 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
-          <p className="text-xs text-cute-subtext">오늘의 응원 카드가 도착했어요!</p>
-          <div className="animate-slide-up">
-            <CuteCard card={card} size="lg" animate />
+        <div className="flex-1 min-h-0 px-4 flex flex-col gap-3 pt-3 overflow-y-auto pb-3">
+          <p className="text-xs text-cute-subtext shrink-0">오늘의 응원 카드가 도착했어요!</p>
+          <div className="animate-slide-up flex-1 min-h-0">
+            <CuteCard card={card} size="lg" animate fill />
           </div>
         </div>
 
