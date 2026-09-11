@@ -13,47 +13,55 @@
 
 ## 실행 방법
 
-\\ash
+```bash
 # 의존성 설치
 npm install
 
 # 개발 서버 시작
 npm run dev
 # → http://localhost:5173
-\
+```
+
 ## 빌드 방법
 
-\\ash
-# 프로덕션 빌드
+```bash
+# 프로덕션 빌드 (타입 체크 → 웹 빌드 → .ait 패키징까지 한 번에)
 npm run build
-# → dist/ 폴더에 번들 생성
+# → dist/ 폴더 + today-cute-pick.ait 생성
 
 # 빌드 미리보기
 npm run preview
 
-# 타입 체크
+# 타입 체크만 따로 하기
 npm run type-check
-\
+```
+
 ## Apps in Toss 배포
 
-1. pm run build:ait\ 실행 (클린빌드)
-2. 프로젝트 루트의 \	oday-cute-pick.ait\ 파일 확인
-3. Apps in Toss 콘솔에서 번들 업로드 → \.ait\ 파일 선택
-4. 심사 제출 후 승인 시 링크로 확인
+> **SDK 버전**: `@apps-in-toss/web-framework` **3.4.0** 사용 중 (토스 권장 기준인 3.1 이상을 만족해요)
+
+1. `npm run clean` 실행 (예전에 만든 dist/.ait 파일 정리)
+2. `npm run build:ait` 실행 (클린빌드 — 타입 체크 → 웹 빌드 → `.ait` 패키징)
+3. 프로젝트 루트의 `today-cute-pick.ait` 파일 확인
+4. Apps in Toss 콘솔에서 번들 업로드 → `.ait` 파일 선택
+5. 심사 제출 후 승인 시 링크로 확인
+
+자세한 절차와 체크리스트는 [docs/05-apps-in-toss-checklist.md](docs/05-apps-in-toss-checklist.md)를 참고하세요.
 
 ## 광고 그룹 ID 설정
 
-실제 광고 동작 시 \src/lib/ads.ts\의 \AD_GROUP_ID\를 설정하세요.
+실제 광고 동작 시 `src/lib/ads.ts`의 광고 ID 상수를 설정하세요.
 
-\\	s
+```ts
 // src/lib/ads.ts
-const AD_GROUP_ID = 'YOUR_AD_GROUP_ID_HERE'; // → 발급받은 ID 입력
-\
+export const REWARD_AD_ID = 'YOUR_AD_GROUP_ID_HERE'; // → 발급받은 ID 입력
+```
+
 ## 이미지 에셋 추가
 
 현재 이모지 + CSS 그라디언트로 캐릭터를 표현합니다.  
-실제 이미지는 \public/assets/characters/\ 폴더에 추가하고,  
-\src/features/cute-draw/data/characters.ts\의 \ssetPath\ 필드를 채우세요.
+실제 이미지는 `public/assets/characters/` 폴더에 추가하고,  
+`src/features/cute-draw/data/characters.ts`의 `assetPath` 필드를 채우세요.
 
 ## 기술 스택
 

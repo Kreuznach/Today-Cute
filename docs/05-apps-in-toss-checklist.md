@@ -1,5 +1,37 @@
 # Apps in Toss 배포 전 체크리스트
 
+## SDK 버전 확인 (제일 먼저 확인하기!)
+
+토스는 앱인토스(Apps in Toss) SDK를 **3.1 버전 이상**으로 쓰라고 권장해요.
+SDK는 우리 앱이 토스 앱 안에서 잘 동작하도록 도와주는 "도구 상자" 같은 거예요.
+너무 오래된 도구 상자를 쓰면 새로운 기능이 빠져 있거나, 토스에서 정한 규칙이 바뀌었을 때 문제가 생길 수 있어요.
+
+**현재 이 프로젝트가 쓰는 버전**: `@apps-in-toss/web-framework` **3.4.0** (2026-09-11 기준 최신 정식 버전)
+
+버전을 직접 확인하고 싶다면 터미널에 아래 명령어를 입력해보세요.
+
+```bash
+npm ls @apps-in-toss/web-framework
+```
+
+결과에 `3.4.0`처럼 3.1 이상 숫자가 보이면 안전해요. 만약 `2.x.x`처럼 낮은 버전이 보이면 아래처럼 업그레이드하세요.
+
+```bash
+npm install @apps-in-toss/web-framework@latest
+```
+
+> **주의**: 2.x → 3.x는 큰 버전이 바뀌는(major) 업그레이드라서 설정 파일 이름도 바뀌어요.
+> - `granite.config.ts` → `apps-in-toss.config.ts` (파일 이름이 바뀜)
+> - `outdir` → `webBundleDir` (설정 안의 이름이 바뀜)
+> - `brand`에는 이제 `primaryColor`만 남아요 (`icon`은 앱인토스 콘솔에서 직접 등록)
+>
+> 이 프로젝트에는 이미 위 변환이 자동으로 적용되어 있어요. 만약 예전 `granite.config.ts` 파일을 다시 쓰고 있다면,
+> 아래 명령어로 자동 변환할 수 있어요 (실행 전 git commit으로 백업해두는 걸 추천!).
+>
+> ```bash
+> npx ait migrate v3
+> ```
+
 ## 번들 업로드 전 확인
 
 ### 기능 체크리스트
@@ -59,13 +91,19 @@ today-cute-pick.ait
 
 ```json
 {
+  "schemaVersion": "1",
   "id": "today-cute-pick",
+  "deploymentId": "019dec3e-45e7-7655-8259-d22013298640",
   "name": "오늘의 귀여운 뽑기",
   "version": "0.2.0",
-  "sdkVersion": "2.0.0",
-  "entry": "index.html"
+  "entry": "index.html",
+  "orientation": "portrait",
+  "backgroundColor": "#ffffff"
 }
 ```
+
+> 참고: 이 파일에는 SDK 버전을 적는 칸이 없어요. SDK 버전은 `package.json`의
+> `@apps-in-toss/web-framework` 값으로 관리돼요 (위 "SDK 버전 확인" 참고).
 
 버전 변경 시 `public/app.json`의 `version`과 `package.json`의 `version`을 함께 업데이트하세요.
 
@@ -73,15 +111,16 @@ today-cute-pick.ait
 
 **클린빌드 (권장 - 프로젝트 업로드 시 항상 사용)**:
 ```bash
+npm run clean
 npm run build:ait
 ```
-`dist/`의 기존 `.ait` 파일을 삭제 후 처음부터 재빌드합니다. 업로드 전에는 반드시 클린 빌드를 사용하세요.
+`npm run clean`이 기존 `dist/`와 `.ait` 파일을 지우고, `npm run build:ait`가 타입 검사(`tsc`) → 웹 빌드(`vite build`) → 앱인토스 패키징(`ait build`)을 순서대로 실행해 `today-cute-pick.ait`를 새로 만들어요.
 
 **일반 빌드 (개발 중 빠른 확인용)**:
 ```bash
 npm run build
 ```
-기존 파일을 유지하며 빌드합니다. 캐시 파일이 남아 있을 수 있으므로 업로드 용도로는 사용하지 마세요.
+`build:ait`와 똑같이 타입 검사 → 웹 빌드 → `.ait` 패키징까지 실행해요. 기존 파일을 지우지 않고 덮어쓰기 때문에, 업로드용 최종본을 만들 때는 꼭 위의 클린빌드를 먼저 실행하세요.
 
 ### 업로드 절차
 

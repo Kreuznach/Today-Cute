@@ -8,8 +8,8 @@ import type { CuteCollection, CuteHistoryItem, CuteTodayRecord, Screen } from '.
 
 // 미니앱 마지막 업데이트 정보
 const APP_UPDATE = {
-  date: '2026.08.19',
-  description: '풀하이트 레이아웃 · 연속 방문 · 주간 도장',
+  date: '2026.09.11',
+  description: '앱인토스 SDK 3.4 업데이트 · 더 빠르고 안정적으로 개선',
 } as const;
 
 interface HomeScreenProps {
