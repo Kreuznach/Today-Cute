@@ -1,4 +1,5 @@
 import { DrawBox } from '../components/DrawBox';
+import { REDRAW_SUBTITLE, REDRAW_TITLE } from '../data/funContent';
 import type { Screen } from '../types';
 
 interface DrawScreenProps {
@@ -21,7 +22,7 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
           ← 뒤로
         </button>
         <h2 className="text-base font-bold text-cute-text">
-          {isRedraw ? '아직 더 운이 남았어요!' : '오늘의 카드 뽑기'}
+          {isRedraw ? REDRAW_TITLE : '오늘의 카드 뽑기'}
         </h2>
       </div>
 
@@ -30,7 +31,7 @@ export function DrawScreen({ isDrawing, isRedraw, onDraw, goTo }: DrawScreenProp
         {/* 설명 */}
         <p className="text-sm text-cute-subtext pb-3 shrink-0">
           {isRedraw
-            ? '새로운 카드를 뽑는 중이에요'
+            ? `🎁 ${REDRAW_SUBTITLE}`
             : '카드팩을 탭해서 오늘의 응원 카드를 뽑아보세요'}
         </p>
 

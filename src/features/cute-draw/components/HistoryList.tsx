@@ -3,6 +3,8 @@ import type { CuteHistoryItem } from '../types';
 import { characters } from '../data/characters';
 import { formatDateKr } from '../utils/date';
 import { CuteCard } from './CuteCard';
+import { CharacterAvatar } from './CharacterAvatar';
+import { emptyTexts } from '../data/funContent';
 
 interface HistoryListProps {
   history: CuteHistoryItem[];
@@ -14,9 +16,9 @@ export function HistoryList({ history }: HistoryListProps) {
   if (history.length === 0) {
     return (
       <div className="flex flex-col items-center gap-3 py-12 text-cute-subtext">
-        <span className="text-4xl">📭</span>
-        <p className="text-sm">아직 뽑은 카드가 없어요</p>
-        <p className="text-xs">오늘 첫 카드를 뽑아봐요!</p>
+        <span className="text-4xl">{emptyTexts.history.icon}</span>
+        <p className="text-sm">{emptyTexts.history.title}</p>
+        <p className="text-xs">{emptyTexts.history.sub}</p>
       </div>
     );
   }
@@ -60,7 +62,9 @@ export function HistoryList({ history }: HistoryListProps) {
                 background: `linear-gradient(135deg, ${character?.colorFrom ?? '#E8EAF6'}, ${character?.colorTo ?? '#C5CAE9'})`,
               }}
             >
-              {character?.emoji ?? '⭐'}
+              {character
+                ? <CharacterAvatar characterKey={character.characterKey} emoji={character.emoji} />
+                : '⭐'}
             </div>
             {/* 정보 */}
             <div className="flex-1 min-w-0">

@@ -2,7 +2,7 @@
 
 ## 현재 상태: MVP v0.2.0 완료 후
 
-**마지막 업데이트**: 2026-09-11 (v0.2.8)
+**마지막 업데이트**: 2026-11-10 (v0.2.10)
 
 ---
 
@@ -65,6 +65,44 @@
 - [x] .granite/app.json 설정 (today-cute-pick)
 - [x] npm run build:ait → today-cute-pick.ait 생성 성공
 - [x] vite-plugin-zip-pack 제거 (불필요)
+
+---
+
+## v0.2.10 수정 이력 (2026-11-10)
+
+### 캐릭터 그림 24종 적용 ([09 문서](09-character-image-guide.md))
+- [x] Grok으로 만든 jpg 24장(1408×1408, 약 5.9MB)을 webp(320×320, 투명 배경)로 변환 → **약 0.4MB**
+- [x] 원본은 `assets-src/characters/` 로 이동 (`public` 안에 두면 앱 파일에 같이 들어가서)
+- [x] 변환 도구 `scripts/optimize-characters.py` 추가
+- [x] `npm run build` 성공, `today-cute-pick.ait` 새로 생성 (약 503KB, dist 안에 jpg 없음)
+- [x] 애니메이션은 **분석·가이드만** 작성, 적용 안 함 ([10 문서](10-animation-guide.md))
+
+---
+
+## v0.2.9 수정 이력 (2026-11-10)
+
+### 재미 · 재방문 아이디어 적용 ([08 문서](08-fun-emoji-and-copy-ideas.md))
+- [x] ① 요일 친구: 홈 인사말 앞에 요일 담당 동물 이모지
+- [x] ② 시간대 인사: 아직 안 뽑았을 때 홈 카드 문구가 아침/낮/저녁/밤에 따라 바뀜
+- [x] ③ 자라는 새싹: 연속 일수에 따라 🌱 → 🌿 → ☘️ → 🌷 → 🌻 → 🌳. 하루 빠져도 혼내지 않는 문구
+- [x] ④ 발자국 도장: 7일 도장에 그날 뽑은 친구가 찍힘, 7칸 다 차면 축하 문구
+- [x] ⑤ 흔들흔들 상자: 뽑는 동안 문구 5개 중 무작위
+- [x] ⑥ 내일 예고: 5개 문구 중 하루 하나 고정, "못 만난 친구 N명" 포함
+- [x] ⑦ 도감 힌트: 못 만난 친구 칸에 수수께끼 한 줄 (24종)
+- [x] ⑧ 카드 이름표: 🌼 매일 / 💫 속마음 / 🍂 계절 카드
+- [x] ⑨ 작은 행동 체크: 최종 카드 화면 버튼 (`cute_action_done` 로컬 저장)
+- [x] ⑩ 계절 한 줄: 홈 상단
+- [x] 재뽑기 문구 "아직 더 운이 남았어요!" → "한 번 더 만나러 가요!" (운세처럼 들리는 말 제거)
+
+### 캐릭터 그림 준비 ([09 문서](09-character-image-guide.md))
+- [x] `CharacterAvatar` 추가: `public/assets/characters/{키}.webp` 가 있으면 그림, 없으면 이모지
+- [x] 모든 화면(홈·카드·도감·기록·도장)에 적용
+- [x] 실제 그림 24장 제작 → v0.2.10에서 적용 완료
+
+### 변경 파일
+- 새로 만듦: `data/funContent.ts`, `components/CharacterAvatar.tsx`
+- 수정: `utils/engagement.ts`, `storage/cuteDrawStorage.ts`, `WeekStampRow`, `DrawBox`, `CuteCard`, `CharacterCollection`, `HistoryList`, `HomeScreen`, `DrawScreen`, `FinalCardScreen`, `CollectionScreen`, `App.tsx`
+- 확인: `npx tsc --noEmit` 통과 (ESLint 설정 파일이 프로젝트에 없어 실행 불가)
 
 ---
 

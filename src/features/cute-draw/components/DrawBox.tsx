@@ -1,9 +1,15 @@
+import { useMemo } from 'react';
+import { boxMessages, pickRandom } from '../data/funContent';
+
 interface DrawBoxProps {
   isDrawing: boolean;
   onDraw: () => void;
 }
 
 export function DrawBox({ isDrawing, onDraw }: DrawBoxProps) {
+  // 상자를 열 때마다 문구가 바뀐다
+  const drawingMessage = useMemo(() => (isDrawing ? pickRandom(boxMessages) : ''), [isDrawing]);
+
   return (
     <div className="flex flex-col items-center justify-center gap-6 w-full h-full min-h-0">
       {/* 카드팩 박스 — 남은 세로 공간을 채우되 최대 크기만 제한 */}
@@ -24,9 +30,9 @@ export function DrawBox({ isDrawing, onDraw }: DrawBoxProps) {
             <div className="absolute bottom-0 right-0 w-24 h-24 rounded-full bg-white/10 translate-x-6 translate-y-6" />
           </div>
           <div className="relative flex flex-col items-center gap-2">
-            <span className="text-6xl">{isDrawing ? '✨' : '🎁'}</span>
-            <span className="text-white font-bold text-sm tracking-wide">
-              {isDrawing ? '뽑는 중...' : '탭해서 뽑기'}
+            <span className="text-6xl">{isDrawing ? '✨📦✨' : '🎁'}</span>
+            <span className="text-white font-bold text-sm tracking-wide text-center px-4">
+              {isDrawing ? drawingMessage : '탭해서 뽑기'}
             </span>
           </div>
         </div>

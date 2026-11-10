@@ -85,3 +85,6 @@ export const REWARD_AD_ID = 'YOUR_AD_GROUP_ID_HERE'; // → 발급받은 ID 입�
 | [docs/05-apps-in-toss-checklist.md](docs/05-apps-in-toss-checklist.md) | 배포 전 체크리스트 |
 | [docs/06-future-supabase-schema.md](docs/06-future-supabase-schema.md) | Supabase 확장 스키마 |
 | [docs/07-layout-and-engagement.md](docs/07-layout-and-engagement.md) | 풀하이트 레이아웃 · 유입/흥미 의견 |
+| [docs/08-fun-emoji-and-copy-ideas.md](docs/08-fun-emoji-and-copy-ideas.md) | 재미 · 재방문용 이모지/그림/문구 아이디어 (적용 완료) |
+| [docs/09-character-image-guide.md](docs/09-character-image-guide.md) | 캐릭터 그림 만들기 · 변환 가이드 (적용 완료) |
+| [docs/10-animation-guide.md](docs/10-animation-guide.md) | 움직이는 캐릭터 분석 · 가이드 (미적용) |

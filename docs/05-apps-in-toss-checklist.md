@@ -145,10 +145,13 @@ npm run build
 
 ## 캐릭터 이미지 에셋 가이드
 
-### 현재 방식 (MVP)
+### 현재 방식
 
-이모지 + CSS 그라디언트로 캐릭터를 표현합니다.  
-별도 이미지 파일 없이 작동하며, 번들 크기를 최소화합니다.
+이모지 + CSS 그라디언트가 기본이고, **그림 파일이 있으면 그림이 우선**입니다 (v0.2.9~).  
+v0.2.10부터 24종 모두 `public/assets/characters/{characterKey}.webp` (320×320, 투명 배경, 합계 약 0.4MB)가 들어 있습니다.  
+원본 jpg는 `public` 밖 `assets-src/characters/` 에 보관합니다 (`public` 안에 두면 .ait에 포함되어 용량이 커짐).  
+없는 파일은 `CharacterAvatar`가 이모지로 대체합니다.  
+그림 제작·변환 방법은 [09-character-image-guide.md](09-character-image-guide.md)를 보세요.
 
 ```ts
 // characters.ts에서 각 캐릭터의 색상과 이모지 정의

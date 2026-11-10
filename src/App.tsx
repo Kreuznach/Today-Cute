@@ -70,6 +70,7 @@ function App() {
       {screen === 'final' && (
         <FinalCardScreen
           todayRecord={todayRecord}
+          collection={collection}
           goTo={goTo}
         />
       )}

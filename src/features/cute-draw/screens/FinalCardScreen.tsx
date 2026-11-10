@@ -1,13 +1,27 @@
-import type { CuteTodayRecord, Screen } from '../types';
+import { useMemo, useState } from 'react';
+import type { CuteCollection, CuteTodayRecord, Screen } from '../types';
 import { CuteCard } from '../components/CuteCard';
+import { characters } from '../data/characters';
+import { actionButtonText, compliments, pickRandom } from '../data/funContent';
+import { isActionDone, markActionDone } from '../storage/cuteDrawStorage';
 import { formatDateKr } from '../utils/date';
+import { getTomorrowTeaser } from '../utils/engagement';
 
 interface FinalCardScreenProps {
   todayRecord: CuteTodayRecord | null;
+  collection: CuteCollection;
   goTo: (screen: Screen) => void;
 }
 
-export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
+export function FinalCardScreen({ todayRecord, collection, goTo }: FinalCardScreenProps) {
+  const dateKst = todayRecord?.dateKst ?? '';
+  const [actionDone, setActionDone] = useState(() => isActionDone(dateKst));
+  const [compliment, setCompliment] = useState('');
+  const teaser = useMemo(
+    () => getTomorrowTeaser(collection.characterKeys.length, characters.length),
+    [collection.characterKeys.length],
+  );
+
   if (!todayRecord) {
     return (
       <div className="screen flex flex-col items-center justify-center">
@@ -19,6 +33,12 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
 
   const finalCard = todayRecord.finalCard ?? todayRecord.firstCard;
 
+  const handleAction = () => {
+    if (actionDone) return;
+    markActionDone(dateKst);
+    setCompliment(pickRandom(compliments));
+    setActionDone(true);
+  };
   return (
     <div className="screen flex flex-col">
       {/* 헤더 */}
@@ -43,11 +63,21 @@ export function FinalCardScreen({ todayRecord, goTo }: FinalCardScreenProps) {
           <CuteCard card={finalCard} size="lg" fill />
         </div>
 
+        {/* 작은 행동 체크 */}
+        <button
+          onClick={handleAction}
+          disabled={actionDone}
+          className={`rounded-2xl p-3 text-sm font-semibold active:scale-95 transition-transform ${
+            actionDone ? 'bg-yellow-50 text-yellow-700 animate-pop' : 'bg-white border border-cute-border text-cute-text'
+          }`}
+        >
+          {actionDone ? actionButtonText.done : actionButtonText.idle}
+          {compliment && <span className="block text-xs font-normal mt-1">{compliment}</span>}
+        </button>
+
         {/* 내일 안내 */}
         <div className="bg-cute-soft rounded-2xl p-3">
-          <p className="text-sm text-cute-subtext text-center leading-relaxed">
-            🌙 내일 새로운 카드를 뽑을 수 있어요
-          </p>
+          <p className="text-sm text-cute-subtext text-center leading-relaxed">{teaser}</p>
         </div>
       </div>
 

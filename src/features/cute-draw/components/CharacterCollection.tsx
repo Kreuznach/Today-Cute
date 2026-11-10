@@ -1,5 +1,7 @@
 import type { CuteCollection } from '../types';
 import { characters } from '../data/characters';
+import { characterHints } from '../data/funContent';
+import { CharacterAvatar } from './CharacterAvatar';
 
 interface CharacterCollectionProps {
   collection: CuteCollection;
@@ -18,15 +20,14 @@ export function CharacterCollection({ collection }: CharacterCollectionProps) {
               transition-all
               ${obtained
                 ? 'bg-white border-cute-border shadow-sm'
-                : 'bg-cute-soft border-transparent opacity-60'
+                : 'bg-cute-soft border-transparent'
               }
             `}
           >
-            {/* 이모지 */}
             <div
               className={`
                 w-14 h-14 rounded-xl flex items-center justify-center text-2xl
-                ${obtained ? '' : 'grayscale blur-[1px]'}
+                ${obtained ? '' : 'opacity-60'}
               `}
               style={{
                 background: obtained
@@ -34,14 +35,21 @@ export function CharacterCollection({ collection }: CharacterCollectionProps) {
                   : '#E5E8EB',
               }}
             >
-              {obtained ? character.emoji : '❓'}
+              {obtained
+                ? <CharacterAvatar characterKey={character.characterKey} emoji={character.emoji} />
+                : '❓'}
             </div>
 
-            {/* 이름 */}
             <p className={`text-xs font-medium text-center leading-tight ${obtained ? 'text-cute-text' : 'text-cute-subtext'}`}>
               {obtained ? character.characterName : '???'}
             </p>
 
+            {/* 못 만난 친구는 힌트 한 줄 */}
+            {!obtained && (
+              <p className="text-[10px] text-cute-subtext text-center leading-tight line-clamp-3">
+                {characterHints[character.characterKey]}
+              </p>
+            )}
             {/* 획득 뱃지 */}
             {obtained && (
               <span className="absolute top-1.5 right-1.5 text-xs text-green-400">✓</span>

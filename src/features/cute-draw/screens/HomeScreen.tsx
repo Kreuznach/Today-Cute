@@ -1,15 +1,17 @@
 import { useEffect, useMemo } from 'react';
 import { characters } from '../data/characters';
+import { getGrowthStage, getSeasonLine, getTimeGreeting, WELCOME_BACK } from '../data/funContent';
 import { formatDateKr } from '../utils/date';
-import { getDrawStreak, getTodayGreeting, getWeekStamps } from '../utils/engagement';
+import { getDrawStreak, getKstClock, getTodayGreeting, getWeekdayFriend, getWeekStamps } from '../utils/engagement';
 import { WeekStampRow } from '../components/WeekStampRow';
+import { CharacterAvatar } from '../components/CharacterAvatar';
 import { showBannerAd, hideBannerAd } from '../../../lib/ads';
 import type { CuteCollection, CuteHistoryItem, CuteTodayRecord, Screen } from '../types';
 
 // 미니앱 마지막 업데이트 정보
 const APP_UPDATE = {
-  date: '2026.09.11',
-  description: '앱인토스 SDK 3.4 업데이트 · 더 빠르고 안정적으로 개선',
+  date: '2026.11.10',
+  description: '귀여운 친구 그림 · 새싹 키우기 · 도감 힌트 추가',
 } as const;
 
 interface HomeScreenProps {
@@ -26,8 +28,14 @@ export function HomeScreen({ todayRecord, history, collection, goTo, onStartDraw
     ? characters.find((c) => c.characterKey === finalCard.characterKey)
     : null;
   const greeting = useMemo(() => getTodayGreeting(), []);
+  const weekdayFriend = useMemo(() => getWeekdayFriend(), []);
+  const { timeGreeting, seasonLine } = useMemo(() => {
+    const { hour, month } = getKstClock();
+    return { timeGreeting: getTimeGreeting(hour), seasonLine: getSeasonLine(month) };
+  }, []);
   const stamps = useMemo(() => getWeekStamps(history), [history]);
   const streak = useMemo(() => getDrawStreak(history), [history]);
+  const growth = streak > 0 ? getGrowthStage(streak) : history.length > 0 ? WELCOME_BACK : null;
   const obtained = collection.characterKeys.length;
   const previewCharacters = characters.slice(0, 6);
 
@@ -42,7 +50,8 @@ export function HomeScreen({ todayRecord, history, collection, goTo, onStartDraw
       {/* 헤더 */}
       <div className="px-4 pt-5 pb-2 shrink-0">
         <h1 className="text-xl font-bold text-cute-text">오늘의 귀여운 뽑기</h1>
-        <p className="text-sm text-cute-subtext mt-0.5">{greeting}</p>
+        <p className="text-sm text-cute-subtext mt-0.5">{weekdayFriend.emoji} {greeting}</p>
+        <p className="text-xs text-cute-subtext/70 mt-0.5">{seasonLine.emoji} {seasonLine.text}</p>
       </div>
 
       {/* 메인 영역 — 남는 세로 공간을 카드/도장이 나눠 채움 */}
@@ -63,7 +72,9 @@ export function HomeScreen({ todayRecord, history, collection, goTo, onStartDraw
             {finalCard && character ? (
               <>
                 <div className="flex items-start gap-3 mb-3">
-                  <span className="text-5xl leading-none">{character.emoji}</span>
+                  <span className="text-5xl leading-none">
+                    <CharacterAvatar characterKey={character.characterKey} emoji={character.emoji} />
+                  </span>
                   <div className="min-w-0">
                     <p className="text-white/70 text-xs mb-0.5">{formatDateKr(todayRecord!.dateKst)} 오늘의 카드</p>
                     <p className="text-white font-bold text-lg">{finalCard.characterName}</p>
@@ -76,19 +87,19 @@ export function HomeScreen({ todayRecord, history, collection, goTo, onStartDraw
               <>
                 <p className="text-white/70 text-xs mb-3">오늘의 카드</p>
                 <div className="flex items-center gap-3">
-                  <span className="text-5xl leading-none">🎁</span>
+                  <span className="text-5xl leading-none animate-bounce-slow">🎁💤</span>
                   <div>
                     <p className="text-white font-bold text-lg">아직 카드를 뽑지 않았어요</p>
-                    <p className="text-white/80 text-sm mt-1">하루 한 장의 응원이 기다리고 있어요</p>
+                    <p className="text-white/80 text-sm mt-1">{timeGreeting.emoji} {timeGreeting.text}</p>
                   </div>
                 </div>
               </>
             )}
           </div>
 
-          {streak > 0 && (
-            <p className="relative text-white/80 text-xs mt-4">
-              연속 {streak}일째 카드를 받았어요
+          {growth && (
+            <p className="relative text-white/90 text-xs mt-4">
+              {growth.emoji} {streak > 0 ? `연속 ${streak}일째 · ` : ''}{growth.text}
             </p>
           )}
         </div>
@@ -159,7 +170,9 @@ export function HomeScreen({ todayRecord, history, collection, goTo, onStartDraw
                   }}
                 >
                   <span className={unlocked ? '' : 'grayscale opacity-50'}>
-                    {unlocked ? item.emoji : '❓'}
+                    {unlocked
+                      ? <CharacterAvatar characterKey={item.characterKey} emoji={item.emoji} />
+                      : '❓'}
                   </span>
                 </div>
               );

@@ -1,5 +1,7 @@
 import type { CuteCardResult } from '../types';
 import { characters } from '../data/characters';
+import { rarityInfo } from '../data/funContent';
+import { CharacterAvatar } from './CharacterAvatar';
 
 interface CuteCardProps {
   card: CuteCardResult;
@@ -7,18 +9,6 @@ interface CuteCardProps {
   animate?: boolean;
   fill?: boolean;
 }
-
-const rarityLabel: Record<CuteCardResult['rarity'], string> = {
-  normal: '일반',
-  special: '✨ 스페셜',
-  seasonal: '🌸 시즌',
-};
-
-const rarityBadgeColor: Record<CuteCardResult['rarity'], string> = {
-  normal: 'bg-gray-100 text-gray-500',
-  special: 'bg-yellow-50 text-yellow-600',
-  seasonal: 'bg-pink-50 text-pink-500',
-};
 
 export function CuteCard({ card, size = 'md', animate = false, fill = false }: CuteCardProps) {
   const character = characters.find((c) => c.characterKey === card.characterKey);
@@ -55,15 +45,15 @@ export function CuteCard({ card, size = 'md', animate = false, fill = false }: C
       <div className="absolute top-0 right-0 w-24 h-24 rounded-full opacity-20 bg-white transform translate-x-6 -translate-y-6" />
       <div className="absolute bottom-0 left-0 w-16 h-16 rounded-full opacity-20 bg-white transform -translate-x-4 translate-y-4" />
 
-      {/* 희귀도 뱃지 */}
-      {card.rarity !== 'normal' && (
-        <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full mb-2 ${rarityBadgeColor[card.rarity]}`}>
-          {rarityLabel[card.rarity]}
-        </span>
-      )}
+      {/* 카드 종류 이름표 (등급이 아니라 분위기) */}
+      <span className={`inline-block text-xs font-medium px-2 py-0.5 rounded-full mb-2 ${rarityInfo[card.rarity].badge}`}>
+        {rarityInfo[card.rarity].label}
+      </span>
 
-      {/* 이모지 */}
-      <div className={`${emojiSizes[size]} ${size === 'lg' ? 'mb-4' : 'mb-3'} leading-none`}>{emoji}</div>
+      {/* 캐릭터 그림 (없으면 이모지) */}
+      <div className={`${emojiSizes[size]} ${size === 'lg' ? 'mb-4' : 'mb-3'} leading-none`}>
+        <CharacterAvatar characterKey={card.characterKey} emoji={emoji} />
+      </div>
 
       {/* 캐릭터명 */}
       <p className="text-sm font-medium text-black/50 mb-1">{card.characterName}</p>

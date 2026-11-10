@@ -1,6 +1,7 @@
 import type { CuteCollection, Screen } from '../types';
 import { CharacterCollection } from '../components/CharacterCollection';
 import { characters } from '../data/characters';
+import { emptyTexts } from '../data/funContent';
 
 interface CollectionScreenProps {
   collection: CuteCollection;
@@ -21,7 +22,9 @@ export function CollectionScreen({ collection, goTo }: CollectionScreenProps) {
         <div className="flex items-end justify-between">
           <div>
             <h2 className="text-lg font-bold text-cute-text">컬렉션</h2>
-            <p className="text-xs text-cute-subtext mt-0.5">카드를 뽑으면 캐릭터를 모을 수 있어요</p>
+            <p className="text-xs text-cute-subtext mt-0.5">
+              {obtained === 0 ? emptyTexts.collection : '카드를 뽑으면 캐릭터를 모을 수 있어요'}
+            </p>
           </div>
           <div className="text-right">
             <p className="text-2xl font-bold text-cute-primary">{obtained}</p>

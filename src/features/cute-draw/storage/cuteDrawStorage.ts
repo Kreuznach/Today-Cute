@@ -10,7 +10,26 @@ const KEYS = {
   TODAY: 'cute_today_record',
   HISTORY: 'cute_history',
   COLLECTION: 'cute_collection',
+  ACTION_DONE: 'cute_action_done',
 } as const;
+
+// ===== 작은 행동 체크 (내 폰에만 저장, 점수 없음) =====
+
+export function isActionDone(dateKst: string): boolean {
+  try {
+    return localStorage.getItem(KEYS.ACTION_DONE) === dateKst;
+  } catch {
+    return false;
+  }
+}
+
+export function markActionDone(dateKst: string): void {
+  try {
+    localStorage.setItem(KEYS.ACTION_DONE, dateKst);
+  } catch {
+    // 저장 실패는 무시 (화면 표시만 유지)
+  }
+}
 
 // ===== 오늘 기록 =====
 
